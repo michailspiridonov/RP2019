@@ -1,13 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mysqlConnection = require("./connection");
-const testRoutes = require('./pages/test');
+const testRoutes = require('./pages');
 const pagesPath = "/home/michail/RP2019/pages/";
 
 var app = express();
-app.use(bodyParser.json());
-
-app.use("/test", testRoutes);
+app.use('/styles', express.static(__dirname + '/assets'));
+app.use("/", testRoutes);
 
 
 app.listen(3000);

@@ -8,7 +8,7 @@ Router.get("/", (req, res) => {
          if(err){
             console.log(err);
          } else {
-             res.send(rows);
+             res.sendFile('index.html', {root : __dirname})
          }
      });
 });
