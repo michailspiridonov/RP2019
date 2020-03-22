@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './papers.css';
 
 class Papers extends Component {
   constructor() {
@@ -12,19 +11,16 @@ class Papers extends Component {
   componentDidMount() {
     fetch('/papers')
       .then(res => res.json())
-      .then(papers => this.setState({papers}, () => console.log('Papers fetched...', papers)));
+      .then(papers => this.setState({papers}));
   }
 
+  renderPaper = (paper) => <div className="paper" key={paper.id}>{paper.title}</div>
+  
   render() {
     return (
-      <div>
-        <h2>Papers</h2>
-        <ul>
-        {this.state.papers.map(paper => 
-          <li key={paper.id}>{paper.author} {paper.title} {paper.class} {paper.year} {paper.subject} {paper.mentor}</li>
-        )}
-        </ul>
-      </div>
+     <div className="Papers">
+        {this.state.papers.map(paper => this.renderPaper(paper))}
+     </div>
     );
   }
 }
