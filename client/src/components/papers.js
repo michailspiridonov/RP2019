@@ -11,16 +11,16 @@ class Papers extends Component {
   componentDidMount() {
     fetch('/papers')
       .then(res => res.json())
-      .then(papers => this.setState({papers}));
+      .then(papers => this.setState({ papers }));
   }
 
   renderPaper = (paper) => <div className="paper" key={paper.id}>{paper.title}</div>
-  
+
   render() {
     return (
-     <div className="Papers">
-        {this.state.papers.map(paper => this.renderPaper(paper))}
-     </div>
+      <div className="Papers">
+          {this.state.papers.map(paper => this.renderPaper(paper))}
+      </div>
     );
   }
 }

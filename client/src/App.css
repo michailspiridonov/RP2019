@@ -2,11 +2,25 @@
   text-align: center;
 }
 
-.App-header {
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background-color: #222;
-  height: 75px;
-  padding: 20px;
+  padding: 1%;
+  font-size: 30px;
   color: white;
+  font-family: sans-serif;
+
+}
+.nav-menu {
+  font-size: small;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+  background: rgb(87, 87, 87);
 }
 
 .App-title {
