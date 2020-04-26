@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Upload from './Upload';
 
 export class Add extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ export class Add extends Component {
         <p>{paper.year}</p>
         <p>{paper.suject}</p>
         <p>{paper.mentor}</p>
+        <Upload/>
       </div>
     )
   }

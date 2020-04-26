@@ -1,6 +1,8 @@
 const express = require("express");
 const Router = express.Router();
 const mysqlConnection = require("../connection");
+const multer = require('multer');
+const path = require('path');
 
 //Get all papers
 Router.get("/papers", (req, res) => {
@@ -64,7 +66,34 @@ Router.get("/paper/delete", (req, res) => {
    });
 });
 
+//File upload
 
+const DIR = path.join(__dirname, '../files/');
 
+const storage = multer.diskStorage({
+   destination: (req, file, cb) => {
+       cb(null, DIR);
+   },
+   filename: (req, file, cb) => {
+       const fileName = file.originalname.toLowerCase().split(' ').join('-');
+       cb(null, fileName)
+   }
+});
+
+var upload = multer({
+   storage: storage,
+   fileFilter: (req, file, cb) => {
+       if (file.mimetype == "application/pdf") {
+           cb(null, true);
+       } else {
+           cb(null, false);
+           return cb(new Error('Documents accepted only in .pdf format'));
+       }
+   }
+});
+
+Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
+   res.end("Well")
+});
 
 module.exports = Router;
