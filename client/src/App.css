@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+body {
+  background-color: rgb(207, 207, 207);
 }
 
 .header {
@@ -23,12 +23,28 @@
   background: rgb(87, 87, 87);
 }
 
-.App-title {
-  font-size: 1.5em;
-  vertical-align: middle;
-
+.nav-link {
+  margin: 0 5 0 5;
 }
 
-.App-intro {
-  font-size: large;
+.papers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  justify-content: space-around;
+  padding: 25px; 
+  vertical-align: middle;
+}
+
+.paper {
+  margin: 0 0 10px 0;
+  align-items: center;
+  list-style: none;
+  background-color: rgb(194, 194, 194);
+}
+
+.paper-title {
+  margin-left: 5px;
 }

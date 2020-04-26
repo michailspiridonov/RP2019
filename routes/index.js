@@ -2,7 +2,6 @@ const express = require("express");
 const Router = express.Router();
 const mysqlConnection = require("../connection");
 
-var JSONdata;
 //Get all papers
 Router.get("/papers", (req, res) => {
    mysqlConnection.query("SELECT * FROM papers", (err, rows, fields) => {
@@ -14,7 +13,7 @@ Router.get("/papers", (req, res) => {
    });
 });
 //Get paper by class
-Router.get("/papers/:class", (req, res) => {
+Router.get("/paper/class/:class", (req, res) => {
    mysqlConnection.query(`SELECT * FROM papers WHERE class = '${req.params.class}'`, (err, rows, fields) => {
       if (err) {
          console.log(err);
@@ -28,7 +27,7 @@ Router.get("/papers/:class", (req, res) => {
 });
 
 //Get paper by id
-Router.get("/papers/:id", (req, res) => {
+Router.get("/paper/id/:id", (req, res) => {
    mysqlConnection.query(`SELECT * FROM papers WHERE id = '${req.params.id}'`, (err, rows, fields) => {
       if (err) {
          console.log(err);
@@ -42,23 +41,25 @@ Router.get("/papers/:id", (req, res) => {
 });
 
 //Add paper
-Router.get("/papers/add", (req, res) => {
-   mysqlConnection.query(`INSERT INTO papers (author, title, path, class, year, subject, mentor) VALUES ('${author}', '${title}', '${path}', '${clas}', ${year}, ${subject}, ${mentor})`, (err, result) => {
+Router.get("/paper/add", (req, res) => {
+   const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}')`;
+   console.log(QUERY);
+   mysqlConnection.query(QUERY, (err, result) => {
       if(err){
-         console.log(err);
+         console.log('err ' + err);
       } else {
-         return res.send('<h1>succesfully added</h1>');
+         return res.send(`<h1> ${req.query.title} by ${req.query.author} was succesfully added</h1>`);
       }
    });
 });
 
 //Delete paper
-Router.get("/papers/delete", (req, res) => {
-   mysqlConnection.query(`DELETE FROM papers WHERE id=${id}`, (err, result) => {
+Router.get("/paper/delete", (req, res) => {
+   mysqlConnection.query(`DELETE FROM papers WHERE id=${req.query.id}`, (err, result) => {
       if(err){
          console.log(err);
       } else {
-         return res.send('<h1>succesfully added</h1>');
+         return res.json({result: `success`, id : `${req.query.id}`});
       }
    });
 });

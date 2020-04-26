@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 export function Header() {
@@ -14,10 +14,10 @@ export function Header() {
                     </p>
                 <div className="nav-menu">
                     <Link to="/" style={linkStyle}>
-                        <p>Home</p>
+                        <p className="nav-link">Home</p>
                     </Link>
                     <Link to="/papers" style={linkStyle}>
-                        <p>Papers</p>
+                        <p className="nav-link">Papers</p>
                     </Link>
                 </div>
             </header>
