@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Add from "./components/Add";
 import Delete from "./components/Delete";
+import Download from './components/Download';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/paper/:id" component={Paper} />
           <Route path="/add" component={Add}/>
           <Route path="/delete/:id" component={Delete}/>
+          <Route path="/download/:id/:title" component={Download}/>
         </div>
       </Router>
     )

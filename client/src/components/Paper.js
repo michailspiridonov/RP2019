@@ -24,6 +24,9 @@ class Paper extends Component {
       <Link to={`/delete/${paper.id}`}>
         <h3>Delete paper</h3>
       </Link>
+      <Link to={`/download/${paper.id}/${paper.title}`}>
+        <h3 >Download</h3>
+      </Link>
     </div>
   );
 
