@@ -1,15 +1,19 @@
 const fs = require('fs');
 const pdf = require('pdf-parse');
+const extractKeywords = require('./keywordExtractor');
 
 function parsePdf(path, callback) {
   let dataBuffer = fs.readFileSync(path);
   pdf(dataBuffer).then(function (data) {
     // PDF text
     let info = [];
+    
     dataExtraction(data.text, result => {
      info = result;
      info[2] = path;
-     console.log(path);
+     extractKeywords(data.text, result => {
+      info[7] = result;
+    });
     })
     callback(info);
   });
@@ -39,7 +43,6 @@ function dataExtraction(text, callback){
       info[6] = lines[i].split(':')[1].trim();
     }
   }
-  console.log(info)
   callback(info);
 }
 

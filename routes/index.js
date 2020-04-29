@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const pdfParse = require('../fileParser');
 
+
 //Get all papers
 Router.get("/papers", (req, res) => {
    mysqlConnection.query("SELECT * FROM papers", (err, rows, fields) => {
@@ -45,7 +46,7 @@ Router.get("/paper/id/:id", (req, res) => {
 
 //Add paper
 Router.get("/paper/add", (req, res) => {
-   const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}')`;
+   const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor, keywords) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}', '${req.query.keywords}')`;
    console.log(QUERY);
    mysqlConnection.query(QUERY, (err, result) => {
       if (err) {
@@ -103,11 +104,12 @@ Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
          'class': data[3],
          'year': data[4],
          'subject': data[5],
-         'mentor': data[6]
+         'mentor': data[6],
+         'keywords': data[7]
       });
    });
 });
-
+//Download
 Router.get('/paper/download/:id', (req, res) => {
    const QUERY = `SELECT * FROM papers WHERE id = '${req.params.id}'`;
    mysqlConnection.query(QUERY, (err, result) => {

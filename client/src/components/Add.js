@@ -16,6 +16,7 @@ export class Add extends Component {
       year: 0,
       subject: '',
       mentor: '',
+      keywords: '',
       document: ''
     }
   }
@@ -30,6 +31,12 @@ export class Add extends Component {
     formData.append('document', this.state.document);
     axios.post("/paper/upload", formData, {
     }).then(res => {
+      var keywords = '';
+      let i;
+      for(i = 0; i< res.data.keywords.length; i++){
+        keywords = keywords + res.data.keywords[i] + ';\n'
+      }
+      keywords = keywords.replace(/\,/g, ' ');
       this.setState({
         author: res.data.author,
       title: res.data.title,
@@ -38,6 +45,7 @@ export class Add extends Component {
       year: parseInt(res.data.year),
       subject: res.data.subject,
       mentor: res.data.mentor,
+      keywords: keywords
       });
     });
   }
@@ -45,7 +53,7 @@ export class Add extends Component {
   addPaper = (e) => {
     const paper = this.state;
     console.log(paper)
-    fetch(`/paper/add?author=${paper.author}&title=${paper.title}&path=${paper.path}&class=${paper.class}&year=${paper.year}&subject=${paper.subject}&mentor=${paper.mentor}`);
+    fetch(`/paper/add?author=${paper.author}&title=${paper.title}&path=${paper.path}&class=${paper.class}&year=${paper.year}&subject=${paper.subject}&mentor=${paper.mentor}&keywords=${paper.keywords}`);
     this.setState({
         author: '',
         title: '',
@@ -53,6 +61,7 @@ export class Add extends Component {
         year: 0,
         subject: '',
         mentor: '',
+        keywords: '',
         document: ''
     });
   }
@@ -79,6 +88,9 @@ export class Add extends Component {
           <br/>
           Ucitel: <br/>
           <input type="text" name="mentor" placeholder="Mentor" value={paper.mentor}            onChange={e => this.setState({[e.target.name]: e.target.value})} />
+          <br/>
+          Keywords: <br/>
+          <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{width: '400px', height: '75px'}}            onChange={e => this.setState({[e.target.name]: e.target.value})} />
           <br/>
           <input type="submit" value="Add paper" />
         </form>
