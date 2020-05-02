@@ -4,6 +4,7 @@ const mysqlConnection = require("../connection");
 const multer = require('multer');
 const path = require('path');
 const pdfParse = require('../fileParser');
+const getSimilarity = require('../similarityCheck');
 
 
 //Get all papers
@@ -105,8 +106,11 @@ Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
          'year': data[4],
          'subject': data[5],
          'mentor': data[6],
-         'keywords': data[7]
+         'keywords': data[7],
       });
+   });
+   getSimilarity(DIR + filename, result => {
+      console.log(result + "result");
    });
 });
 //Download
@@ -118,6 +122,17 @@ Router.get('/paper/download/:id', (req, res) => {
       } else {
          const file = result[0].path;
          res.download(file);
+      }
+   });
+});
+//Search
+Router.get('/search', (req, res) => {
+   const QUERY = `SELECT * FROM papers WHERE author LIKE '%${req.query.author}%' AND title LIKE '%${req.query.title}%' AND class LIKE '%${req.query.class}%' AND year LIKE '%${req.query.year}%' AND subject LIKE '%${req.query.subject}%' AND mentor LIKE '%${req.query.mentor}%' AND keywords LIKE '%${req.query.keywords}%'`;
+   mysqlConnection.query(QUERY, (err, result) => {
+      if(err) {
+         console.log(err);
+      } else {
+         res.send(result);
       }
    });
 });

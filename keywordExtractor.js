@@ -352,7 +352,6 @@ function extractKeywords(text, callback) {
         keywords.push(arr);
       }
     }
-    console.log(keywords);
     callback(keywords);
   });
 }
