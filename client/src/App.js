@@ -9,6 +9,7 @@ import Add from "./components/Add";
 import Delete from "./components/Delete";
 import Download from './components/Download';
 import Search from './components/Search';
+import Results from './components/Results';
 
 class App extends Component {
   render() {
@@ -17,12 +18,13 @@ class App extends Component {
         <div className="App">
           <Header />
           <Route path="/" exact component={Home} />
-          <Route path="/papers" component={Papers} />
-          <Route path="/paper/:id" component={Paper} />
-          <Route path="/add" component={Add}/>
-          <Route path="/delete/:id" component={Delete}/>
-          <Route path="/download/:id/:title" component={Download}/>
-          <Route path="/search" component={Search}/>
+          <Route path="/papers" exact component={Papers} />
+          <Route path="/paper/:id" exact component={Paper} />
+          <Route path="/add" exact component={Add}/>
+          <Route path="/delete/:id" exact component={Delete}/>
+          <Route path="/download/:id/:title" exact component={Download}/>
+          <Route path="/search" exact component={Search}/>
+          <Route path="/search/results" exact component={Results}/>
         </div>
       </Router>
     )

@@ -14,8 +14,9 @@ export class Results extends Component {
   render() {
     return (
       <div className="results">
+        <h1>Search results:</h1><br/>
         <ul>
-          {this.props.data.map(paper => this.renderResults(paper))}
+          {this.props.location.state.papers.map(paper => this.renderResults(paper))}
         </ul>
       </div>
     )

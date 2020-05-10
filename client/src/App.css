@@ -19,8 +19,9 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 10%;
+  width: 50%;
   background: rgb(87, 87, 87);
+  
 }
 
 .nav-link {
@@ -39,12 +40,29 @@ body {
 }
 
 .paper {
-  margin: 0 0 10px 0;
+  margin: auto;
   align-items: center;
   list-style: none;
+  text-align: center;
   background-color: rgb(194, 194, 194);
+  width: 200px;
+  height: 190px;
+  padding-top: 10%;
+  border: 1px solid black;
+  margin-top: -1px;
 }
 
-.paper-title {
-  margin-left: 5px;
+.paper-text{
+  color: black;
+  text-decoration: none;
+  margin: auto;
+}
+
+.add-paper {
+  max-width: 500px;
+  margin: auto;
+}
+
+.add-input {
+  width: 385px;
 }

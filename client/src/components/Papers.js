@@ -12,15 +12,18 @@ class Papers extends Component {
   async componentDidMount() {
     const res = await fetch('/papers/');
     const data = await res.json();
-    this.setState({papers : data});
+    this.setState({ papers: data });
   }
 
   renderPaper = ((paper) =>
     <Link to={`/paper/${paper.id}`} key={paper.id}>
-    <li className="paper">
-      <h3 className="paper-title">{paper.title}</h3>
-      <p className="paper-author">{paper.author}</p>
-    </li>
+      <li className="paper">
+        <div className="paper-text">
+          <h3 className="">{paper.title}</h3>
+          <p className="">{paper.author}</p>
+          <p className="">{paper.subject}</p>
+        </div>
+      </li>
     </Link>
   );
 

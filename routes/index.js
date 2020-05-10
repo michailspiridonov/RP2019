@@ -52,8 +52,14 @@ Router.get("/paper/add", (req, res) => {
    mysqlConnection.query(QUERY, (err, result) => {
       if (err) {
          console.log('err ' + err);
+         return res.json({
+            result: false
+         });
       } else {
-         return res.send(`<h1> ${req.query.title} by ${req.query.author} was succesfully added</h1>`);
+         return res.json({
+            title: req.query.title,
+            result: true
+         });
       }
    });
 });

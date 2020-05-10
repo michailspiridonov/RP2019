@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Results from './Results';
+import { Redirect } from 'react-router-dom';
 
 export class Search extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ export class Search extends Component {
       subject: '',
       mentor: '',
       keywords: '',
-      papers: []
+      papers: [],
+      redirect: false
     }
   }
 
@@ -29,13 +31,22 @@ export class Search extends Component {
           subject: '',
           mentor: '',
           keywords: '',
-          papers: data
+          papers: data,
+          redirect: '/search/results'
         });
       })
     });
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={{
+        pathname: this.state.redirect,
+        state: {
+          papers: this.state.papers
+        }
+    }}/>
+    }
     return (
       <div>
         <h2>Search</h2><br />
@@ -63,7 +74,7 @@ export class Search extends Component {
           <br />
           <input type="submit" value="Search" />
         </form>
-        <Results key={this.state.papers}  data={this.state.papers}/>
+        {/* <Results data={this.state.papers}/> */}
       </div>
     )
   }

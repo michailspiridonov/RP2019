@@ -11,7 +11,6 @@ export class Delete extends Component {
   async componentDidMount() {
     const res = await fetch(`/paper/delete?id=${this.props.match.params.id}`);
     const data = await res.json();
-    console.log(data)
     this.setState({ data })
   }
 

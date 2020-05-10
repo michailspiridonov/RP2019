@@ -13,11 +13,14 @@ export function Header() {
                     Term paper catalogue
                     </p>
                 <div className="nav-menu">
-                    <Link to="/" style={linkStyle}>
-                        <p className="nav-link">Home</p>
-                    </Link>
                     <Link to="/papers" style={linkStyle}>
                         <p className="nav-link">Papers</p>
+                    </Link>
+                    <Link to="/add" style={linkStyle}>
+                        <p className="nav-link">Add Paper</p>
+                    </Link>
+                    <Link to="/search" style={linkStyle}>
+                        <p className="nav-link">Search</p>
                     </Link>
                 </div>
             </header>
