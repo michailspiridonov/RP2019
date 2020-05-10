@@ -52,10 +52,40 @@ body {
   margin-top: -1px;
 }
 
+.paper-details{
+  float: left;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding-right: 20px;
+}
+
+.paper-buttons{
+  float: left;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding-left: 20px;
+}
+
 .paper-text{
   color: black;
   text-decoration: none;
   margin: auto;
+}
+
+.paper-title{
+  text-align: center;
+  border: 1px solid black;
+}
+
+.paper-year{
+  text-align: center;
+}
+
+.paper-subject{
+  text-align: center;
+  text-decoration: underline;
 }
 
 .add-paper {
