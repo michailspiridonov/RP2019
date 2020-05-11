@@ -28,6 +28,11 @@ class Papers extends Component {
   );
 
   render() {
+    if(this.state.papers.length==0){
+      return(
+        <h1 className="no-paper-error">No papers found</h1>
+      )
+    }
     return (
       <div>
         <ul className="papers">

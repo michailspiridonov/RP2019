@@ -15,10 +15,15 @@ export class Results extends Component {
   );
 
   render() {
+    if(!this.props.location.state.papers.length){
+      return (
+        <h1 className="no-paper-error">No papers found</h1>
+      )
+    }
     return (
-      <div className="results">
+      <div>
         <h1>Search results:</h1><br />
-        <ul>
+        <ul className="papers">
           {this.props.location.state.papers.map(paper => this.renderResults(paper))}
         </ul>
       </div>

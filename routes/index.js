@@ -52,6 +52,7 @@ Router.get("/paper/add", (req, res) => {
    mysqlConnection.query(QUERY, (err, result) => {
       if (err) {
          console.log('err ' + err);
+         throw "<s";
          return res.json({
             result: false
          });
@@ -115,9 +116,9 @@ Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
          'keywords': data[7],
       });
    });
-   getSimilarity(DIR + filename, result => {
-      console.log(result + "result");
-   });
+   // getSimilarity(DIR + filename, result => {
+   //    console.log(result + "result");
+   // });
 });
 //Download
 Router.get('/paper/download/:id', (req, res) => {

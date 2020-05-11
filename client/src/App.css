@@ -60,12 +60,17 @@ body {
   padding-right: 20px;
 }
 
+.no-paper-error{
+  text-align: center;
+  margin: auto;
+}
+
 .paper-buttons{
   float: left;
   display: flex;
   flex-direction: column;
   margin: auto;
-  padding-left: 20px;
+  padding-left: 30%;
 }
 
 .paper-text{
@@ -79,13 +84,26 @@ body {
   border: 1px solid black;
 }
 
+.paper-author{
+  text-align: center;
+  float: right;
+}
+
 .paper-year{
   text-align: center;
+  float: left;
+}
+
+.paper-container{
+  text-align: center;
+  width: 300px;
+  margin: auto;
 }
 
 .paper-subject{
   text-align: center;
   text-decoration: underline;
+  margin-top: 100px;
 }
 
 .add-paper {
