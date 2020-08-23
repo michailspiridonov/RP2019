@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Header } from './Header';
 
 export class Results extends Component {
   renderResults = ((paper) =>
@@ -17,11 +18,15 @@ export class Results extends Component {
   render() {
     if(!this.props.location.state.papers.length){
       return (
+        <div>
+        <Header />
         <h1 className="no-paper-error">No papers found</h1>
+        </div>
       )
     }
     return (
       <div>
+        <Header />
         <h1 className="result-text">Search results:</h1><br />
         <div className="papers">
           {this.props.location.state.papers.map(paper => this.renderResults(paper))}

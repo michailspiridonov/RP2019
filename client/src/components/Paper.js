@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { Header } from './Header';
 
 class Paper extends Component {
   constructor(match) {
@@ -51,11 +52,15 @@ class Paper extends Component {
   render() {
     if (this.state.paper == undefined) {
       return (
+        <div>
+        <Header />
         <h1 className="no-paper-error">Paper not found</h1>
+        </div>
       )
     }
     return (
       <div>
+        <Header />
         <div className="paper-detail">{this.renderPaper(this.state.paper)}</div>
         <ToastContainer />
       </div>

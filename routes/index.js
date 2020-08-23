@@ -2,11 +2,22 @@ const express = require("express");
 const Router = express.Router();
 const mysqlConnection = require("../connection");
 const multer = require('multer');
+var session = require('express-session');
 const path = require('path');
 const pdfParse = require('../fileParser');
 const bodyParser = require('body-parser');
 const getSimilarity = require('../similarityCheck');
+const { request } = require("http");
 
+Router.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true,
+	cookie : {
+		httpOnly: true,
+		maxAge: 7200000
+	}
+}));
 
 //Get all papers
 Router.get("/papers", (req, res) => {
@@ -49,21 +60,22 @@ Router.get("/paper/id/:id", (req, res) => {
 //Add paper
 Router.get("/paper/add", (req, res) => {
    const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor, keywords) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}', '${req.query.keywords}')`;
-   console.log(QUERY);
-   mysqlConnection.query(QUERY, (err, result) => {
-      if (err) {
-         console.log('err ' + err);
-         throw "<s";
-         return res.json({
-            result: false
-         });
-      } else {
-         return res.json({
-            title: req.query.title,
-            result: true
-         });
-      }
-   });
+   if(req.session.loggedin){
+      mysqlConnection.query(QUERY, (err, result) => {
+         if (err) {
+            return res.json({
+               result: false
+            });
+         } else {
+            return res.json({
+               title: req.query.title,
+               result: true
+            });
+         }
+      });
+   } else {
+      res.json({result: false})
+   }
 });
 
 //Delete paper
@@ -121,6 +133,7 @@ Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
    //    console.log(result + "result");
    // });
 });
+
 //Download
 Router.get('/paper/download/:id', (req, res) => {
    const QUERY = `SELECT * FROM papers WHERE id = '${req.params.id}'`;
@@ -153,10 +166,20 @@ Router.post('/login', (req, res) => {
          console.log(err);
       } if(result.length) {
          res.json({login: true});
+         req.session.loggedin = true;
+         req.session.username = `${req.body.username}`;
+         req.session.save();
       } else {
          res.json({login: false});
       }
    });
+});
+
+Router.get('/session', (req, res) => {
+   res.json({
+      loggedin: req.session.loggedin,
+      username: req.session.username
+   })
 });
 
 module.exports = Router;

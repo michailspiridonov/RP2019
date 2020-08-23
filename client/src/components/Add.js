@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router-dom';
+import { Header } from './Header';
 
 export class Add extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export class Add extends Component {
       keywords: '',
       document: '',
       result: '',
+      user: '',
       redirect: false
     }
   }
@@ -69,13 +71,23 @@ export class Add extends Component {
     });
   }
 
+  async componentDidMount() {
+    const res = await fetch(`/session`);
+    const data = await res.json();
+    if(data.loggedin){
+      this.setState({ user: data.username})
+    } else {
+      this.setState({redirect: '/'})
+    }
+  }
+
   addPaper = (e) => {
     e.preventDefault();
     var err = false;
     const paper = this.state;
     fetch(`/paper/add?author=${paper.author}&title=${paper.title}&path=${paper.path}&class=${paper.class}&year=${paper.year}&subject=${paper.subject}&mentor=${paper.mentor}&keywords=${paper.keywords}`)
       .then(res => res.json()).then(data =>{
-        if(!data){
+        if(!data || !data.result){
           console.log(data)
           this.addError();
         } else {
@@ -84,7 +96,6 @@ export class Add extends Component {
         }
       })
     if(err){
-      console.log("sdfgstge" + err)
       this.setState({
         author: '',
         title: '',
@@ -126,6 +137,7 @@ export class Add extends Component {
     }
     return (
       <div className="add-paper">
+        <Header />
         <form onSubmit={this.addPaper} className="add-form">
           Author:<br />
           <input type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />

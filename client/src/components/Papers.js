@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Header } from './Header';
 
 class Papers extends Component {
   constructor() {
@@ -30,11 +31,15 @@ class Papers extends Component {
   render() {
     if(this.state.papers.length==0){
       return(
+        <div>
+        <Header />
         <h1 className="no-paper-error">No papers found</h1>
+        </div>
       )
     }
     return (
       <div>
+        <Header />
         <div className="papers">
           {this.state.papers.map(paper => this.renderPaper(paper))}
         </div>

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Header } from './Header';
 
 export class Download extends Component {
   constructor(match) {
@@ -21,6 +22,7 @@ export class Download extends Component {
   render() {
     return (
       <div>
+        <Header />
         <h1><i>Downloading...</i></h1>
       </div>
     )

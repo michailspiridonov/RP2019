@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Header } from './Header';
 
 export class Delete extends Component {
   constructor(match) {
@@ -17,6 +18,7 @@ export class Delete extends Component {
   render() {
     return (
       <div>
+        <Header />
         <h1>{this.state.data.result}</h1>
     <h2>Paper with the id of {this.state.data.id} deleted</h2>
       </div>
