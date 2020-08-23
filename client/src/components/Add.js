@@ -74,10 +74,10 @@ export class Add extends Component {
   async componentDidMount() {
     const res = await fetch(`/session`);
     const data = await res.json();
-    if(data.loggedin){
-      this.setState({ user: data.username})
+    if (data.loggedin) {
+      this.setState({ user: data.username })
     } else {
-      this.setState({redirect: '/'})
+      this.setState({ redirect: '/' })
     }
   }
 
@@ -86,8 +86,8 @@ export class Add extends Component {
     var err = false;
     const paper = this.state;
     fetch(`/paper/add?author=${paper.author}&title=${paper.title}&path=${paper.path}&class=${paper.class}&year=${paper.year}&subject=${paper.subject}&mentor=${paper.mentor}&keywords=${paper.keywords}`)
-      .then(res => res.json()).then(data =>{
-        if(!data || !data.result){
+      .then(res => res.json()).then(data => {
+        if (!data || !data.result) {
           console.log(data)
           this.addError();
         } else {
@@ -95,7 +95,7 @@ export class Add extends Component {
           this.successfullyUploaded(data.title);
         }
       })
-    if(err){
+    if (err) {
       this.setState({
         author: '',
         title: '',
@@ -122,51 +122,53 @@ export class Add extends Component {
   }
 
   render() {
-    if(this.state.redirect){
+    if (this.state.redirect) {
       return <Redirect to={{
         pathname: this.state.redirect,
         state: {
           papers: this.state.papers
         }
-    }}/>
+      }} />
     }
     const paper = this.state;
     if (paper.result === false) {
       console.log(paper.result);
-      {this.fileTypeError()}
+      { this.fileTypeError() }
     }
     return (
-      <div className="add-paper">
+      <div>
         <Header />
-        <form onSubmit={this.addPaper} className="add-form">
-          Author:<br />
-          <input type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+        <div className="add-paper">
+          <form onSubmit={this.addPaper} className="add-form">
+            Author:<br />
+            <input type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Title: <br />
-          <input type="text" name="title" placeholder="Title" value={paper.title} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+            <input type="text" name="title" placeholder="Title" value={paper.title} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Class: <br />
-          <input type="text" name="class" maxLength="1" placeholder="Class" value={paper.class} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+            <input type="text" name="class" maxLength="1" placeholder="Class" value={paper.class} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Year: <br />
-          <input type="number" name="year" maxLength="4" placeholder="Year" value={paper.year} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+            <input type="number" name="year" maxLength="4" placeholder="Year" value={paper.year} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Subject: <br />
-          <input type="text" name="subject" placeholder="Subject" value={paper.subject} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+            <input type="text" name="subject" placeholder="Subject" value={paper.subject} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Mentor: <br />
-          <input type="text" name="mentor" placeholder="Mentor" value={paper.mentor} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
+            <input type="text" name="mentor" placeholder="Mentor" value={paper.mentor} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
           Keywords: <br />
-          <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
-          <br />
-          <input type="submit" value="Add paper" />
-        </form>
-        <div>
-          <h1>File upload</h1>
-          <input type="file" name="file upload" onChange={this.onFileChange} />
-          <button type="submit" onClick={this.onUpload}>Upload</button>
-          <ToastContainer/>
+            <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <br />
+            <input type="submit" value="Add paper" />
+          </form>
+          <div>
+            <h1>File upload</h1>
+            <input type="file" name="file upload" onChange={this.onFileChange} />
+            <button type="submit" onClick={this.onUpload}>Upload</button>
+            <ToastContainer />
+          </div>
         </div>
       </div>
     )

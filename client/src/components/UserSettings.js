@@ -20,17 +20,19 @@ export class UserSettings extends Component {
     }
 
     render() {
-        if(!this.state.user){
-            return(
+        if (!this.state.user) {
+            return (
                 <div>
-                    <Header/>
-                <h1>Please login to view this page</h1>
+                    <Header />
+                    <h1>Please login to view this page</h1>
                 </div>
             )
         }
-        return (
-            <React.Fragment>
+        if(this.state.user === 'admin'){
+            return(
+                <React.Fragment>
                 <Header />
+                <h2>Welcome {this.state.user}</h2>
                 <div className="user-buttons">
                     <button>
                         <Link to={`/adduser`}>
@@ -38,13 +40,27 @@ export class UserSettings extends Component {
                         </Link>
                     </button>
                     <button>
-                        <Link to={`/`}>
-                            <h3 >Remove User</h3>
+                        <Link to={`/removeuser`}>
+                            <h3>Remove User</h3>
                         </Link>
                     </button>
                     <button>
                         <Link to={`/`}>
-                            <h3 >Edit {this.state.user}</h3>
+                            <h3>Edit user profiles</h3>
+                        </Link>
+                    </button>
+                </div>
+            </React.Fragment>
+            )
+        }
+        return (
+            <React.Fragment>
+                <Header />
+                <h2>Welcome {this.state.user}</h2>
+                <div className="user-buttons">
+                    <button>
+                        <Link to={`/`}>
+                            <h3>Edit your profile</h3>
                         </Link>
                     </button>
                 </div>

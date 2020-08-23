@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import UserSettings from './components/UserSettings';
 import AddUser from './components/AddUser';
+import RemoveUser from './components/RemoveUser';
 
 class App extends Component {
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path="/logout" exact component={Logout}/>
           <Route path="/usersettings" exact component={UserSettings}/>
           <Route path="/adduser" exact component={AddUser}/>
+          <Route path="/removeuser" exact component={RemoveUser}/>
         </div>
       </Router>
     )

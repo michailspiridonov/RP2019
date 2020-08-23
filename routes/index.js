@@ -208,4 +208,28 @@ Router.get('/logout', (req, res) => {
    res.json({result: 'Logged Out'})
 });
 
+//get all users
+Router.get("/getusers", (req, res) => {
+   if(req.session.username === 'admin'){
+      mysqlConnection.query("SELECT * FROM users", (err, rows, fields) => {
+         if (err) {
+            console.log(err);
+         } else {
+            res.send(rows);
+         }
+      });
+   }
+});
+
+//delete user
+Router.get("/deleteuser", (req, res) => {
+   mysqlConnection.query(`DELETE FROM users WHERE username=${req.query.username}`, (err, result) => {
+      if (err) {
+         console.log(err);
+      } else {
+         return res.json({ result: `success`, id: `${req.query.username}` });
+      }
+   });
+});
+
 module.exports = Router;
