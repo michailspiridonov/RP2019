@@ -24,7 +24,7 @@ export class Search extends Component {
     fetch(`/search?author=${paper.author}&title=${paper.title}&path=${paper.path}&class=${paper.class}&year=${paper.year}&subject=${paper.subject}&mentor=${paper.mentor}&keywords=${paper.keywords}`).then(res => {
       res.json().then(data => {
         this.setState({
-          author: 'as',
+          author: '',
           title: '',
           class: '',
           year: 0,

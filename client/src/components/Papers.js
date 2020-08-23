@@ -17,13 +17,13 @@ class Papers extends Component {
 
   renderPaper = ((paper) =>
     <Link to={`/paper/${paper.id}`} key={paper.id}>
-      <li className="paper">
+      <div className="paper">
         <div className="paper-text">
           <h3 className="">{paper.title}</h3>
           <p className="">{paper.author}</p>
           <p className="">{paper.subject}</p>
         </div>
-      </li>
+      </div>
     </Link>
   );
 
@@ -35,9 +35,9 @@ class Papers extends Component {
     }
     return (
       <div>
-        <ul className="papers">
+        <div className="papers">
           {this.state.papers.map(paper => this.renderPaper(paper))}
-        </ul>
+        </div>
       </div>
     );
   }

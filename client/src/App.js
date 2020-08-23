@@ -10,6 +10,7 @@ import Delete from "./components/Delete";
 import Download from './components/Download';
 import Search from './components/Search';
 import Results from './components/Results';
+import Login from './components/Login'
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path="/download/:id/:title" exact component={Download}/>
           <Route path="/search" exact component={Search}/>
           <Route path="/search/results" exact component={Results}/>
+          <Route path="/login" exact component={Login}/>
         </div>
       </Router>
     )

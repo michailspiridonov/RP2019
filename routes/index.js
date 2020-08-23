@@ -4,6 +4,7 @@ const mysqlConnection = require("../connection");
 const multer = require('multer');
 const path = require('path');
 const pdfParse = require('../fileParser');
+const bodyParser = require('body-parser');
 const getSimilarity = require('../similarityCheck');
 
 
@@ -140,6 +141,20 @@ Router.get('/search', (req, res) => {
          console.log(err);
       } else {
          res.send(result);
+      }
+   });
+});
+//Login
+Router.post('/login', (req, res) => {
+   // const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
+   const QUERY = `SELECT * FROM users WHERE username LIKE '${req.body.username}' AND password LIKE '${req.body.password}'`
+   mysqlConnection.query(QUERY, (err, result) => {
+      if(err){
+         console.log(err);
+      } if(result.length) {
+         res.json({login: true});
+      } else {
+         res.json({login: false});
       }
    });
 });

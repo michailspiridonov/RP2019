@@ -38,7 +38,7 @@ export class Add extends Component {
     this.setState({ document: e.target.files[0] });
   }
   addError = () => {
-    toast.error("Error uploading paper")
+    toast.error("Error uploading paper");
   }
 
   onUpload(e) {
