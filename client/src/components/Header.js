@@ -60,6 +60,9 @@ export class Header extends Component {
                             <Link to="/search" style={{color: 'white', textDecoration: 'none'}}>
                                 <p className="nav-link">Search</p>
                             </Link>
+                            <Link to="/login" style={{color: 'white', textDecoration: 'none'}}>
+                                <p className="nav-link">Login</p>
+                            </Link>
                         </div>
                     </header>
                 </React.Fragment>

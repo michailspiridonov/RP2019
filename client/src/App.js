@@ -11,6 +11,7 @@ import Download from './components/Download';
 import Search from './components/Search';
 import Results from './components/Results';
 import Login from './components/Login'
+import Logout from './components/Logout'
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
           <Route path="/search" exact component={Search}/>
           <Route path="/search/results" exact component={Results}/>
           <Route path="/login" exact component={Login}/>
+          <Route path="/logout" exact component={Logout}/>
         </div>
       </Router>
     )

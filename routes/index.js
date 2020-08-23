@@ -157,6 +157,7 @@ Router.get('/search', (req, res) => {
       }
    });
 });
+
 //Login
 Router.post('/login', (req, res) => {
    // const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
@@ -175,6 +176,7 @@ Router.post('/login', (req, res) => {
    });
 });
 
+//Get session data
 Router.get('/session', (req, res) => {
    res.json({
       loggedin: req.session.loggedin,
@@ -182,4 +184,8 @@ Router.get('/session', (req, res) => {
    })
 });
 
+//logout
+Router.get('/logout', (req, res) => {
+   req.session.destroy();
+});
 module.exports = Router;
