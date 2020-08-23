@@ -39,6 +39,12 @@ export class Header extends Component {
                             <Link to="/search" style={{color: 'white', textDecoration: 'none'}}>
                                 <p className="nav-link">Search</p>
                             </Link>
+                            <Link to="/usersettings" style={{color: 'white', textDecoration: 'none'}}>
+                                <p className="nav-link">User Settings</p>
+                            </Link>
+                            <Link to="/logout" style={{color: 'white', textDecoration: 'none'}}>
+                                <p className="nav-link">Logout</p>
+                            </Link>
                         </div>
                     </header>
                 </React.Fragment>

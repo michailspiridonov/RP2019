@@ -10,13 +10,13 @@ const getSimilarity = require('../similarityCheck');
 const { request } = require("http");
 
 Router.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true,
-	cookie : {
-		httpOnly: true,
-		maxAge: 7200000
-	}
+   secret: 'secret',
+   resave: true,
+   saveUninitialized: true,
+   cookie: {
+      httpOnly: true,
+      maxAge: 7200000
+   }
 }));
 
 //Get all papers
@@ -60,7 +60,7 @@ Router.get("/paper/id/:id", (req, res) => {
 //Add paper
 Router.get("/paper/add", (req, res) => {
    const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor, keywords) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}', '${req.query.keywords}')`;
-   if(req.session.loggedin){
+   if (req.session.loggedin) {
       mysqlConnection.query(QUERY, (err, result) => {
          if (err) {
             return res.json({
@@ -74,7 +74,7 @@ Router.get("/paper/add", (req, res) => {
          }
       });
    } else {
-      res.json({result: false})
+      res.json({ result: false })
    }
 });
 
@@ -138,7 +138,7 @@ Router.post('/paper/upload', upload.single('document'), (req, res, next) => {
 Router.get('/paper/download/:id', (req, res) => {
    const QUERY = `SELECT * FROM papers WHERE id = '${req.params.id}'`;
    mysqlConnection.query(QUERY, (err, result) => {
-      if(err) {
+      if (err) {
          console.log(err);
       } else {
          const file = result[0].path;
@@ -150,7 +150,7 @@ Router.get('/paper/download/:id', (req, res) => {
 Router.get('/search', (req, res) => {
    const QUERY = `SELECT * FROM papers WHERE author LIKE '%${req.query.author}%' AND title LIKE '%${req.query.title}%' AND class LIKE '%${req.query.class}%' AND year LIKE '%${req.query.year}%' AND subject LIKE '%${req.query.subject}%' AND mentor LIKE '%${req.query.mentor}%' AND keywords LIKE '%${req.query.keywords}%'`;
    mysqlConnection.query(QUERY, (err, result) => {
-      if(err) {
+      if (err) {
          console.log(err);
       } else {
          res.send(result);
@@ -163,18 +163,36 @@ Router.post('/login', (req, res) => {
    // const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
    const QUERY = `SELECT * FROM users WHERE username LIKE '${req.body.username}' AND password LIKE '${req.body.password}'`
    mysqlConnection.query(QUERY, (err, result) => {
-      if(err){
+      if (err) {
          console.log(err);
-      } if(result.length) {
-         res.json({login: true});
+      } if (result.length) {
+         res.json({ login: true });
          req.session.loggedin = true;
          req.session.username = `${req.body.username}`;
          req.session.save();
       } else {
-         res.json({login: false});
+         res.json({ login: false });
       }
    });
 });
+
+//Add User
+Router.post('/adduser', (req, res) => {
+   if (req.session.loggedin) {
+      const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
+      mysqlConnection.query(QUERY, (err, result) => {
+         if (err) {
+            console.log(err);
+            res.json({ success: false, message: 'Error, possibly duplicate usernames' });
+         } else {
+            res.json({ success: true });
+         }
+      });
+   } else {
+      res.json({ success: false, message: 'Not logged in' });
+   }
+});
+
 
 //Get session data
 Router.get('/session', (req, res) => {
@@ -187,5 +205,7 @@ Router.get('/session', (req, res) => {
 //logout
 Router.get('/logout', (req, res) => {
    req.session.destroy();
+   res.json({result: 'Logged Out'})
 });
+
 module.exports = Router;
