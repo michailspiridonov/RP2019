@@ -6,18 +6,22 @@ class Papers extends Component {
   constructor() {
     super();
     this.state = {
-      papers: []
+      papers: [],
+      loading: true
     };
   }
 
   async componentDidMount() {
     const res = await fetch('/papers/');
     const data = await res.json();
-    this.setState({ papers: data });
+    this.setState({
+      papers: data,
+      loading: false
+    });
   }
 
   renderPaper = ((paper) =>
-    <Link to={`/paper/${paper.id}`} key={paper.id}>
+    <Link to={`/paper/${paper.id}`} key={paper.id} style={{ textDecoration: 'none' }}>
       <div className="paper">
         <div className="paper-text">
           <h3 className="">{paper.title}</h3>
@@ -29,11 +33,19 @@ class Papers extends Component {
   );
 
   render() {
-    if(this.state.papers.length==0){
-      return(
+    if (this.state.loading) {
+      return (
+          <div className="loading">
+              <Header />
+              <h1>Loading...</h1>
+          </div>
+      )
+  }
+    if (this.state.papers.length === 0) {
+      return (
         <div>
-        <Header />
-        <h1 className="no-paper-error">No papers found</h1>
+          <Header />
+          <h1 className="no-paper-error">No papers found</h1>
         </div>
       )
     }

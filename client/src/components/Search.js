@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Results from './Results';
 import { Redirect } from 'react-router-dom';
 import { Header } from './Header';
 

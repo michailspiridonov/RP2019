@@ -32,20 +32,20 @@ export class UserSettings extends Component {
             return(
                 <React.Fragment>
                 <Header />
-                <h2>Welcome {this.state.user}</h2>
+                <h2 className="welcome-message">Welcome {this.state.user}</h2>
                 <div className="user-buttons">
                     <button>
-                        <Link to={`/adduser`}>
+                        <Link to={`/user/add`}>
                             <h3>Add User</h3>
                         </Link>
                     </button>
                     <button>
-                        <Link to={`/removeuser`}>
+                        <Link to={`/user/remove`}>
                             <h3>Remove User</h3>
                         </Link>
                     </button>
                     <button>
-                        <Link to={`/`}>
+                        <Link to={`/user/edit`}>
                             <h3>Edit user profiles</h3>
                         </Link>
                     </button>
@@ -56,10 +56,10 @@ export class UserSettings extends Component {
         return (
             <React.Fragment>
                 <Header />
-                <h2>Welcome {this.state.user}</h2>
+                <h2 className="welcome-message">Welcome {this.state.user}</h2>
                 <div className="user-buttons">
                     <button>
-                        <Link to={`/`}>
+                        <Link to={`/user/edit`}>
                             <h3>Edit your profile</h3>
                         </Link>
                     </button>

@@ -12,8 +12,10 @@ export class AddUser extends Component {
             user: '',
             username: '',
             password: '',
+            confirmpassword: '',
             message: '',
-            redirect: false
+            redirect: false,
+            loading: true
         }
     }
 
@@ -21,12 +23,19 @@ export class AddUser extends Component {
         const res = await fetch(`/session`);
         const data = await res.json();
         if (data.loggedin) {
-            this.setState({ user: data.username })
+            this.setState({
+                user: data.username,
+                loading: false
+            })
         }
     }
 
     addError = () => {
         toast.error(this.state.message);
+    }
+
+    passwordError = () => {
+        toast.error(`Passwords don't match`);
     }
 
     addSuccess = () => {
@@ -36,17 +45,21 @@ export class AddUser extends Component {
     login = (e) => {
         e.preventDefault();
         const user = this.state;
-        axios.post('/adduser', user, {}).then(res => {
-            if (res.data.success) {
-                this.setState({ redirect: '/usersettings', message: res.data.message });
-                console.log(res.data)
-                { this.addSuccess() }
-            } else {
-                this.setState({ message: res.data.message });
-                { this.addError() }
-                console.log(res.data)
-            }
-        });
+        if (user.confirmpassword !== user.password) {
+            this.passwordError()
+        } else {
+            axios.post('/adduser', user, {}).then(res => {
+                if (res.data.success) {
+                    this.setState({ redirect: '/user/settings', message: res.data.message });
+                    console.log(res.data)
+                    this.addSuccess()
+                } else {
+                    this.setState({ message: res.data.message });
+                    this.addError()
+                    console.log(res.data)
+                }
+            });
+        }
     }
 
     render() {
@@ -55,22 +68,32 @@ export class AddUser extends Component {
                 pathname: this.state.redirect
             }} />
         }
-        if(!this.state.user){
-            return(
+        if (!this.state.user) {
+            return (
                 <div>
-                    <Header/>
-                <h1>Please login to view this page</h1>
+                    <Header />
+                    <h1>Please login to view this page</h1>
+                </div>
+            )
+        }
+        if (this.state.loading) {
+            return (
+                <div className="loading">
+                    <Header />
+                    <h1>Loading...</h1>
                 </div>
             )
         }
         return (
-            <div>
+            <div className="login-page">
                 <Header />
-                <form onSubmit={this.login}>
-                    Username: <br />
+                <form onSubmit={this.login} className="form">
+                    <label htmlFor="username">Username:</label>
                     <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-          Password: <br />
-                    <input required type="password" name="password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                    <label htmlFor="username">Password:</label>
+                    <input required type="password" name="password" placeholder="password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                    <label htmlFor="username">Confirm Password:</label>
+                    <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                     <input type="submit" value="Add User" />
                 </form>
                 <ToastContainer />

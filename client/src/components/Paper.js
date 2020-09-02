@@ -9,18 +9,25 @@ class Paper extends Component {
     super();
     this.state = {
       paper: {},
-      user: ''
+      user: '',
+      loading: true
     };
   }
 
   async componentDidMount() {
     var res = await fetch(`/paper/id/${this.props.match.params.id}`);
     var data = await res.json();
-    this.setState({ paper: data[0] });
+    this.setState({
+      paper: data[0],
+      loading: false
+    });
     res = await fetch(`/session`);
     data = await res.json();
     if (data.loggedin) {
-      this.setState({ user: data.username })
+      this.setState({
+        user: data.username,
+        loading: false
+      })
     }
   }
 
@@ -78,7 +85,15 @@ class Paper extends Component {
   );
 
   render() {
-    if (this.state.paper == undefined) {
+    if (this.state.loading) {
+      return (
+        <div className="loading">
+          <Header />
+          <h1>Loading...</h1>
+        </div>
+      )
+    }
+    if (this.state.paper === undefined) {
       return (
         <div>
           <Header />
@@ -86,7 +101,7 @@ class Paper extends Component {
         </div>
       )
     }
-    if(this.state.user){
+    if (this.state.user) {
       return (
         <div>
           <Header />

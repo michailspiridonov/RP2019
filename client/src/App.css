@@ -9,10 +9,24 @@ body {
   align-items: center;
   background-color: #222;
   padding: 1%;
-  font-size: 30px;
-  color: white;
   font-family: sans-serif;
   text-transform: uppercase;
+}
+
+.header-title {
+  font-size: 30px;
+  color: white;
+}
+
+
+.user {
+  position:fixed;
+   right:20px;
+   top:5px;
+   display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
 }
 
 .result-text{
@@ -196,8 +210,11 @@ body {
   margin: auto;
   justify-content: space-around;
   padding: 25px; 
+  text-transform: capitalize;
+  float: left;
+  flex-direction: column;
+  padding-left: 30%;
 }
-
 
 .form {
   position: relative;

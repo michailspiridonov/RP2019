@@ -8,6 +8,7 @@ const pdfParse = require('../fileParser');
 const bodyParser = require('body-parser');
 const getSimilarity = require('../similarityCheck');
 const { request } = require("http");
+var bcrypt = require('bcryptjs');
 
 Router.use(session({
    secret: 'secret',
@@ -88,7 +89,7 @@ Router.get("/paper/delete", (req, res) => {
             return res.json({ success: true, id: `${req.query.id}` });
          }
       });
-   } else  {
+   } else {
       res.json({ success: false, message: 'Not logged in' });
    }
 });
@@ -150,6 +151,7 @@ Router.get('/paper/download/:id', (req, res) => {
       }
    });
 });
+
 //Search
 Router.get('/search', (req, res) => {
    const QUERY = `SELECT * FROM papers WHERE author LIKE '%${req.query.author}%' AND title LIKE '%${req.query.title}%' AND class LIKE '%${req.query.class}%' AND year LIKE '%${req.query.year}%' AND subject LIKE '%${req.query.subject}%' AND mentor LIKE '%${req.query.mentor}%' AND keywords LIKE '%${req.query.keywords}%'`;
@@ -165,15 +167,23 @@ Router.get('/search', (req, res) => {
 //Login
 Router.post('/login', (req, res) => {
    // const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
-   const QUERY = `SELECT * FROM users WHERE username LIKE '${req.body.username}' AND password LIKE '${req.body.password}'`
+   const username = req.body.username;
+   const password = req.body.password;
+   const QUERY = `SELECT * FROM users WHERE username LIKE '${req.body.username}'`;
    mysqlConnection.query(QUERY, (err, result) => {
       if (err) {
          console.log(err);
       } if (result.length) {
-         res.json({ login: true });
-         req.session.loggedin = true;
-         req.session.username = `${req.body.username}`;
-         req.session.save();
+         bcrypt.compare(password, result[0].password, (err, result) => {
+            if (result) {
+               res.json({ login: true });
+               req.session.loggedin = true;
+               req.session.username = username;
+               req.session.save();
+            } else{
+               res.json({ login: false });
+            }
+         });
       } else {
          res.json({ login: false });
       }
@@ -183,14 +193,18 @@ Router.post('/login', (req, res) => {
 //Add User
 Router.post('/adduser', (req, res) => {
    if (req.session.loggedin) {
-      const QUERY = `INSERT INTO users (username, password) VALUES ('${req.body.username}', '${req.body.password}')`;
-      mysqlConnection.query(QUERY, (err, result) => {
-         if (err) {
-            console.log(err);
-            res.json({ success: false, message: 'Error, possibly duplicate usernames' });
-         } else {
-            res.json({ success: true });
-         }
+      const password = `${req.body.password}`;
+      const username = `${req.body.username}`;
+      bcrypt.hash(password, 8, (err, hash) => {
+         const QUERY = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
+         mysqlConnection.query(QUERY, (err, result) => {
+            if (err) {
+               console.log(err);
+               res.json({ success: false, message: 'Error, possibly duplicate usernames' });
+            } else {
+               res.json({ success: true });
+            }
+         });
       });
    } else {
       res.json({ success: false, message: 'Not logged in' });
@@ -227,13 +241,25 @@ Router.get("/getusers", (req, res) => {
 
 //delete user
 Router.get("/deleteuser", (req, res) => {
-   mysqlConnection.query(`DELETE FROM users WHERE username=${req.query.username}`, (err, result) => {
-      if (err) {
-         console.log(err);
+   if (req.session.username === 'admin') {
+      if (!(req.query.username === 'admin')) {
+         const QUERY = `DELETE FROM users WHERE username='${req.query.username}'`;
+         console.log(QUERY)
+         mysqlConnection.query(QUERY, (err, result) => {
+            if (err) {
+               console.log(err);
+            } else {
+               return res.json({ result: true, id: `${req.query.username}` });
+            }
+         });
       } else {
-         return res.json({ result: `success`, id: `${req.query.username}` });
+         return res.json({ result: false, message: `Can't delete admin` });
       }
-   });
+   } else if (req.session.loggedin) {
+      return res.json({ result: false, message: `Only admin can delete users` });
+   } else {
+      return res.json({ result: false, message: `You have to be loggeds in as admin` });
+   }
 });
 
 module.exports = Router;
