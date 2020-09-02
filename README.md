@@ -1,9 +1,9 @@
-To install all dependencies run:
+**To install all dependencies run:**
 ```
 npm install
 npm run client-install
 ```
-Run scripts:
+**Run scripts:**
 
 Client only:
 
