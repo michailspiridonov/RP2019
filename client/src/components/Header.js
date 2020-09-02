@@ -29,7 +29,7 @@ export class Header extends Component {
         this.successfullyLoggedOut()
         setTimeout(() => {
             fetch('/logout');
-            this.forceUpdate();
+            window.location.reload(true); 
         }, 1000);
         
     }
