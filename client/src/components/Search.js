@@ -52,8 +52,8 @@ export class Search extends Component {
       <div>
         <Header />
         <div className="add-paper">
-          <h2>Search</h2><br />
           <form onSubmit={this.searchPaper} className="add-form">
+          <h2>Search</h2><br />
             Autor: <br />
             <input type="text" name="author" id="1" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />

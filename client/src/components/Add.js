@@ -162,14 +162,14 @@ export class Add extends Component {
             <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
             <input type="submit" value="Add paper" />
-          </form>
           <div>
             <h1>File upload</h1>
-            <input type="file" name="file upload" onChange={this.onFileChange} />
+            <input required type="file" name="file upload" onChange={this.onFileChange} />
             <button type="submit" onClick={this.onUpload}>Upload</button>
-            <ToastContainer />
           </div>
+          </form>
         </div>
+            <ToastContainer />
       </div>
     )
   }

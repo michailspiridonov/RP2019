@@ -35,10 +35,11 @@ export class RemoveUser extends Component {
 
   delete = (e) => {
       e.preventDefault();
-      const res = await fetch(`/paper/delete?id=${this.props.match.params.id}`);
-      const data = await res.json();
-      console.log(data);
-    
+      fetch(`/paper/delete?id=${this.props.match.params.id}`).then(res => {
+        res.json();
+      }).then(data => {
+        console.log(data);
+      });
   }
 
     render() {

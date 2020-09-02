@@ -43,14 +43,14 @@ export class Login extends Component {
       }}/>
     }
     return (
-      <div>
+      <div className="login-page">
         <Header />
-        <form onSubmit={this.login}>
+        <form onSubmit={this.login} className="form">
           Username: <br/>
           <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })}/> <br/>
           Password: <br/>
           <input required type="password" name="password" onChange={e => this.setState({ [e.target.name]: e.target.value })}/> <br/>
-          <input type="submit" value="Login"/>
+          <button type="submit" value="Login">Login</button>
         </form>
         <ToastContainer/>
       </div>

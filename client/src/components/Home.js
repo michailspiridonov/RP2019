@@ -24,7 +24,7 @@ export class Home extends Component {
         return (
             <div>  
             <Header />
-                <h1>Welcome {this.state.user}</h1>  
+                <h1 className="welcome-message">Welcome {this.state.user}</h1>  
             </div>
         )
     }

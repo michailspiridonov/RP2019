@@ -80,13 +80,17 @@ Router.get("/paper/add", (req, res) => {
 
 //Delete paper
 Router.get("/paper/delete", (req, res) => {
-   mysqlConnection.query(`DELETE FROM papers WHERE id=${req.query.id}`, (err, result) => {
-      if (err) {
-         console.log(err);
-      } else {
-         return res.json({ result: `success`, id: `${req.query.id}` });
-      }
-   });
+   if (req.session.loggedin) {
+      mysqlConnection.query(`DELETE FROM papers WHERE id=${req.query.id}`, (err, result) => {
+         if (err) {
+            console.log(err);
+         } else {
+            return res.json({ success: true, id: `${req.query.id}` });
+         }
+      });
+   } else  {
+      res.json({ success: false, message: 'Not logged in' });
+   }
 });
 
 //File upload
@@ -205,12 +209,12 @@ Router.get('/session', (req, res) => {
 //logout
 Router.get('/logout', (req, res) => {
    req.session.destroy();
-   res.json({result: 'Logged Out'})
+   res.json({ result: 'Logged Out' })
 });
 
 //get all users
 Router.get("/getusers", (req, res) => {
-   if(req.session.username === 'admin'){
+   if (req.session.username === 'admin') {
       mysqlConnection.query("SELECT * FROM users", (err, rows, fields) => {
          if (err) {
             console.log(err);

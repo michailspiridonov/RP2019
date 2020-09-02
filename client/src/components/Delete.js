@@ -5,7 +5,7 @@ export class Delete extends Component {
   constructor(match) {
     super();
     this.state = {
-      data : {}
+      data: {}
     };
   }
 
@@ -16,13 +16,23 @@ export class Delete extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Header />
-        <h1>{this.state.data.result}</h1>
-    <h2>Paper with the id of {this.state.data.id} deleted</h2>
-      </div>
-    )
+    if (this.state.data.success) {
+      return (
+        <div>
+          <Header />
+          <h1>Success</h1>
+          <h2>Paper with the id of {this.state.data.id} deleted</h2>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Header />
+          <h1>Error</h1>
+          <h2>{this.state.data.message}</h2>
+        </div>
+      )
+    }
   }
 }
 
