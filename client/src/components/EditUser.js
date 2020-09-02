@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Header } from './Header';
+import axios from 'axios';
 
 export class EditUser extends Component {
     constructor(props) {
@@ -35,8 +36,7 @@ export class EditUser extends Component {
         }
         if ((this.state.user === 'admin')) {
             const ures = await fetch(`/getusers`);
-            const udata = await ures.json();
-            console.log(udata);
+            const udata = await ures.json();    
             this.setState({ users: udata });
             this.setState({ loading: false });
         } else {
@@ -50,20 +50,13 @@ export class EditUser extends Component {
         </option>
     );
 
-    edit = (e) => {
+    changePassword = (e) => {
         e.preventDefault();
-        fetch(`/edituser?username=${this.state.selectedUser}`).then(res => res.json()).then(data => {
-            console.log(data)
-            if (!data) {
-                this.editError('Error')
-            }
-            if (data.result) {
-                this.editSuccess()
-            } else {
-                this.editError(data.message)
-            }
+        const user = this.state;
+        console.log(user)
+        axios.post('/useredit', user, {method: 'post'}).then(res => {
+            console.log(res.data);
         });
-
     }
 
     render() {
@@ -88,30 +81,29 @@ export class EditUser extends Component {
                 <div>
                     <Header />
                     <div className="user-removal">
-                        <label htmlFor="users"></label>
-                        <select name="users" onChange={e => this.setState({ selectedUser: e.target.value })}>
+                        <h2 htmlFor="users">Choose a user to edit:</h2>
+                        <select name="users" className="users" onChange={e => this.setState({ selectedUser: e.target.value })}>
                             <option value="" disabled selected>Please select user</option>
                             {this.state.users.map(user => this.renderUser(user))}
                         </select>
-                        <button onClick={this.edit}>Submit</button>
                     </div>
                     <ToastContainer />
                 </div>
             )
-        } else if(this.state.user === 'admin') {
+        } else if (this.state.user === 'admin') {
             return (
                 <div>
                     <Header />
-                    <h2>Editing {this.state.selectedUser}</h2>
                     <div className="login-page">
-                        <form onSubmit={this.login} className="form">
-                            <label htmlFor="username">Username:</label>
-                            <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                            <label htmlFor="username">Password:</label>
-                            <input required type="password" name="password" placeholder="password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                            <label htmlFor="username">Confirm Password:</label>
-                            <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                            <input type="submit" value="Add User" />
+                        <form onSubmit={this.login} name="form" className="form">
+                            <h2 className="edit-message">Editing {this.state.selectedUser}</h2>
+                            <label htmlFor="oldPassword">Old Password:</label>
+                            <input required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <label htmlFor="newPassword">New Password:</label>
+                            <input required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <label htmlFor="confirmationPassword">Confirm New Password:</label>
+                            <input required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input type="submit" value="Change Password" onClick={this.changePassword}/>
                         </form>
                     </div>
                     <ToastContainer />
@@ -122,9 +114,9 @@ export class EditUser extends Component {
             return (
                 <div>
                     <Header />
-                    <h2>Editing {this.state.user}</h2>
                     <div className="login-page">
                         <form onSubmit={this.login} className="form">
+                            <h2 className="edit-message">Editing {this.state.user}</h2>
                             <label htmlFor="username">Username:</label>
                             <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="username">Password:</label>

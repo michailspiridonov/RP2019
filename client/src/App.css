@@ -18,12 +18,56 @@ body {
   color: white;
 }
 
+.users {
+  width: 100%;
+  height: 50px;
+  font-size: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: rgb(100, 100, 100);
+  color: white;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.users:hover,
+.users:focus {
+  color: rgb(100, 100, 100);
+  background-color: rgb(194, 194, 194);
+  border-bottom-color: #DCDCDC;
+}
+
+.user-removal {
+  width: 250px;
+  margin: left;
+  padding: 25px;
+  padding-left: 30%;
+}
+
+.remove-user-btn {
+  width: 100px;
+  margin-left: 30%;
+  background-color: #fff;
+  color: rgb(100, 100, 100);
+  border-radius: 6px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+.remove-user-btn:hover,
+.remove-user-btn:focus {
+  background-color: rgb(100, 100, 100);
+  color: #fff;
+}
 
 .user {
   position:fixed;
-   right:20px;
-   top:5px;
-   display: flex;
+  right:20px;
+  top:5px;
+  display: flex;
   align-items: center;
   justify-content: space-around;
   color: #fff;
@@ -201,6 +245,9 @@ body {
 	padding: 8px 18px;
 	text-decoration: none;
 	text-transform: uppercase;
+}
+.edit-message{
+  text-transform: capitalize;
 }
 
 .welcome-message{

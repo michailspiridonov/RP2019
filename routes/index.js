@@ -180,7 +180,7 @@ Router.post('/login', (req, res) => {
                req.session.loggedin = true;
                req.session.username = username;
                req.session.save();
-            } else{
+            } else {
                res.json({ login: false });
             }
          });
@@ -193,8 +193,8 @@ Router.post('/login', (req, res) => {
 //Add User
 Router.post('/adduser', (req, res) => {
    if (req.session.loggedin) {
-      const password = `${req.body.password}`;
-      const username = `${req.body.username}`;
+      const password = req.body.password;
+      const username = req.body.username;
       bcrypt.hash(password, 8, (err, hash) => {
          const QUERY = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
          mysqlConnection.query(QUERY, (err, result) => {
@@ -259,6 +259,55 @@ Router.get("/deleteuser", (req, res) => {
       return res.json({ result: false, message: `Only admin can delete users` });
    } else {
       return res.json({ result: false, message: `You have to be loggeds in as admin` });
+   }
+});
+
+//Change Password
+Router.post('/useredit', (req, res) => {
+   if (req.session.loggedin) {
+      const oldPassword = req.body.oldPassword;
+      const newPassword = req.body.newPassword;
+      const confirmationPassword = req.body.confirmationPassword;
+      const username = req.body.selectedUser;
+      console.log(oldPassword, newPassword, confirmationPassword, username)
+      if (newPassword === confirmationPassword) {
+         const QUERY = `SELECT * FROM users WHERE username LIKE '${username}'`;
+         mysqlConnection.query(QUERY, (err, result) => {
+            if (err) {
+               console.log(err);
+            } else {
+               if (result.length) {
+                  bcrypt.compare(oldPassword, result[0].password, (err, result) => {
+                     if (result) {
+                        bcrypt.hash(newPassword, 8, (err, hash) => {
+                           const QUERY = `UPDATE users SET password='${hash}' WHERE username='${username}'`;
+                           mysqlConnection.query(QUERY, (err, result) => {
+                              if (err) {
+                                 console.log(err);
+                                 res.json({ result: false, message: err });
+                              } else {
+                                 res.json({ result: true });
+                              }
+                           });
+                        });
+                     } else {
+                        res.json({ result: false, message: `Old password is wrong` });
+                     }
+                  });
+               }
+            }
+         });
+      } else {
+         res.json({
+            result: false,
+            messaage: `Passwords don't match`
+         })
+      }
+   } else {
+      res.json({
+         result: false,
+         messaage: `Not logged in`
+      })
    }
 });
 

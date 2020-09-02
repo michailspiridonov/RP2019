@@ -44,6 +44,9 @@ export class RemoveUser extends Component {
 
     delete = (e) => {
         e.preventDefault();
+        if(this.state.selectedUser===''){
+            this.deleteError('Please select a user');
+        } else {
         fetch(`/deleteuser?username=${this.state.selectedUser}`).then(res => res.json()).then(data => {
             console.log(data)
             if (!data) {
@@ -62,7 +65,7 @@ export class RemoveUser extends Component {
                 this.deleteError(data.message)
             }
         });
-
+    }
     }
 
     render() {
@@ -94,13 +97,13 @@ export class RemoveUser extends Component {
             <div>
                 <Header />
                 <div className="user-removal">
-                    <label htmlFor="users"></label>
-                    <select name="users" onChange={e => this.setState({ selectedUser: e.target.value })}>
+                    <h2 htmlFor="users">Choose a user to delete:</h2>
+                    <select name="users" className="users" onChange={e => this.setState({ selectedUser: e.target.value })}>
                         <option value="" disabled selected>Please select user</option>
                         {this.state.users.map(user => this.renderUser(user))}
                     </select>
-                    <button onClick={this.delete}>Submit</button>
                 </div>
+                <button className="remove-user-btn" onClick={this.delete}>Submit</button>
                 <ToastContainer />
             </div>
         )

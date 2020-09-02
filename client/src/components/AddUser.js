@@ -89,9 +89,9 @@ export class AddUser extends Component {
                 <Header />
                 <form onSubmit={this.login} className="form">
                     <label htmlFor="username">Username:</label>
-                    <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                    <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                     <label htmlFor="username">Password:</label>
-                    <input required type="password" name="password" placeholder="password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                    <input required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                     <label htmlFor="username">Confirm Password:</label>
                     <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                     <input type="submit" value="Add User" />
