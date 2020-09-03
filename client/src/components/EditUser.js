@@ -33,6 +33,11 @@ export class EditUser extends Component {
         const sdata = await sres.json();
         if (sdata.loggedin) {
             this.setState({ user: sdata.username })
+        } else {
+            this.setState({
+                loading: false,
+                redirect: '/'
+            })
         }
         if ((this.state.user === 'admin')) {
             const ures = await fetch(`/getusers`);

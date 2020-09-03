@@ -31,7 +31,6 @@ export class RemoveUser extends Component {
         }
         const ures = await fetch(`/getusers`);
         const udata = await ures.json();
-        console.log(udata);
         this.setState({ users: udata });
         this.setState({ loading: false });
     }
@@ -73,7 +72,7 @@ export class RemoveUser extends Component {
             return (
                 <div>
                     <Header />
-                    <h1>Please login to view this page</h1>
+                    <h1 className="welcome-message">Please login to view this page</h1>
                 </div>
             )
         }
@@ -81,7 +80,7 @@ export class RemoveUser extends Component {
             return (
                 <div>
                     <Header />
-                    <h1>Only admin account can delete users</h1>
+                    <h1 className="welcome-message">Only admin account can delete users</h1>
                 </div>
             )
         }

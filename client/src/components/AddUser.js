@@ -27,6 +27,11 @@ export class AddUser extends Component {
                 user: data.username,
                 loading: false
             })
+        } else {
+            this.setState({
+                loading: false,
+                redirect: '/'
+            })
         }
     }
 

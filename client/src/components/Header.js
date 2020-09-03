@@ -17,6 +17,11 @@ export class Header extends Component {
         const data = await res.json();
         if (data.loggedin) {
             this.setState({ user: data.username })
+        } else {
+            this.setState({
+                loading: false,
+                redirect: '/'
+            })
         }
     }
 
