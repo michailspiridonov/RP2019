@@ -28,29 +28,23 @@ export class UserSettings extends Component {
                 </div>
             )
         }
-        if(this.state.user === 'admin'){
-            return(
+        if (this.state.user === 'admin') {
+            return (
                 <React.Fragment>
-                <Header />
-                <h2 className="welcome-message">Welcome {this.state.user}</h2>
-                <div className="user-buttons">
-                    <button>
+                    <Header />
+                    <h2 className="welcome-message">Welcome {this.state.user}</h2>
+                    <div className="user-buttons">
                         <Link to={`/user/add`}>
-                            <h3>Add User</h3>
+                            <a className="btn-main">Add user</a>
                         </Link>
-                    </button>
-                    <button>
                         <Link to={`/user/remove`}>
-                            <h3>Remove User</h3>
+                            <a className="btn-main">Delete user</a>
                         </Link>
-                    </button>
-                    <button>
                         <Link to={`/user/edit`}>
-                            <h3>Edit user profiles</h3>
+                            <a className="btn-main">Edit user</a>
                         </Link>
-                    </button>
-                </div>
-            </React.Fragment>
+                    </div>
+                </React.Fragment>
             )
         }
         return (
@@ -58,11 +52,9 @@ export class UserSettings extends Component {
                 <Header />
                 <h2 className="welcome-message">Welcome {this.state.user}</h2>
                 <div className="user-buttons">
-                    <button>
                         <Link to={`/user/edit`}>
-                            <h3>Edit your profile</h3>
+                            <a className="btn-main">Edit your profile</a>
                         </Link>
-                    </button>
                 </div>
             </React.Fragment>
         )

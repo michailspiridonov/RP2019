@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const getSimilarity = require('../similarityCheck');
 const { request } = require("http");
 var bcrypt = require('bcryptjs');
+const removeDiacritics = require('../stringNormalizer');
 
 Router.use(session({
    secret: 'secret',
@@ -103,8 +104,10 @@ const storage = multer.diskStorage({
       cb(null, DIR);
    },
    filename: (req, file, cb) => {
-      const fileName = file.originalname.toLowerCase().split(' ').join('-');
-      cb(null, fileName)
+      const fileName = String(file.originalname.toLowerCase().split(' ').join('-'));
+      removeDiacritics(fileName, str => {
+         cb(null, str);
+      });
    }
 });
 
@@ -193,19 +196,23 @@ Router.post('/login', (req, res) => {
 //Add User
 Router.post('/adduser', (req, res) => {
    if (req.session.loggedin) {
-      const password = req.body.password;
-      const username = req.body.username;
-      bcrypt.hash(password, 8, (err, hash) => {
-         const QUERY = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
-         mysqlConnection.query(QUERY, (err, result) => {
-            if (err) {
-               console.log(err);
-               res.json({ success: false, message: 'Error, possibly duplicate usernames' });
-            } else {
-               res.json({ success: true });
-            }
+      if (req.session.username === 'admin') {
+         const password = req.body.password;
+         const username = req.body.username;
+         bcrypt.hash(password, 8, (err, hash) => {
+            const QUERY = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
+            mysqlConnection.query(QUERY, (err, result) => {
+               if (err) {
+                  console.log(err);
+                  res.json({ success: false, message: 'Error, possibly duplicate usernames' });
+               } else {
+                  res.json({ success: true });
+               }
+            });
          });
-      });
+      } else {
+         res.json({ success: false, message: 'Only admin can add users' });
+      }
    } else {
       res.json({ success: false, message: 'Not logged in' });
    }
@@ -269,7 +276,6 @@ Router.post('/useredit', (req, res) => {
       const newPassword = req.body.newPassword;
       const confirmationPassword = req.body.confirmationPassword;
       const username = req.body.selectedUser;
-      console.log(oldPassword, newPassword, confirmationPassword, username)
       if (newPassword === confirmationPassword) {
          const QUERY = `SELECT * FROM users WHERE username LIKE '${username}'`;
          mysqlConnection.query(QUERY, (err, result) => {
