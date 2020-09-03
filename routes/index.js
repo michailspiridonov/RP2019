@@ -10,6 +10,7 @@ const getSimilarity = require('../similarityCheck');
 const { request } = require("http");
 var bcrypt = require('bcryptjs');
 const removeDiacritics = require('../stringNormalizer');
+const fs = require('fs');
 
 Router.use(session({
    secret: 'secret',
@@ -61,9 +62,12 @@ Router.get("/paper/id/:id", (req, res) => {
 
 //Add paper
 Router.get("/paper/add", (req, res) => {
-   const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor, keywords) VALUES ('${req.query.author}', '${req.query.title}', '${req.query.path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}', '${req.query.keywords}')`;
+   const path = (req.query.path).replace(/\\/g, '\\\\');
+   console.log(path)
+   const QUERY = `INSERT INTO papers (author, title, path, class, year, subject, mentor, keywords) VALUES ('${req.query.author}', '${req.query.title}', '${path}', '${req.query.class}', ${req.query.year}, '${req.query.subject}', '${req.query.mentor}', '${req.query.keywords}')`;
    if (req.session.loggedin) {
       mysqlConnection.query(QUERY, (err, result) => {
+         console.log
          if (err) {
             return res.json({
                result: false
@@ -83,13 +87,28 @@ Router.get("/paper/add", (req, res) => {
 //Delete paper
 Router.get("/paper/delete", (req, res) => {
    if (req.session.loggedin) {
-      mysqlConnection.query(`DELETE FROM papers WHERE id=${req.query.id}`, (err, result) => {
+      const SELECT_QUERY = `SELECT * FROM papers WHERE id=${req.query.id}`;
+      mysqlConnection.query(SELECT_QUERY, (err, result) => {
          if (err) {
-            console.log(err);
+            res.json({ success: false, messaage: err });
          } else {
-            return res.json({ success: true, id: `${req.query.id}` });
+            const path = result[0].path;
+            try {
+               fs.unlinkSync(path)
+               //file removed
+            } catch (err) {
+               console.error(err)
+            }
+            mysqlConnection.query(`DELETE FROM papers WHERE id=${req.query.id}`, (err, result) => {
+               if (err) {
+                  console.log(err);
+               } else {
+                  return res.json({ success: true, id: `${req.query.id}` });
+               }
+            });
          }
       });
+
    } else {
       res.json({ success: false, message: 'Not logged in' });
    }
