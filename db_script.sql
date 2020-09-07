@@ -56,3 +56,8 @@ COLLATE = utf8mb4_unicode_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Add 'Admin' user
+-- -----------------------------------------------------
+INSERT INTO `users` VALUES (NULL, 'admin', '$2y$08$oNU6xtoIhsmJmMZtfHHFEuM1snj.dtvQQ27KAw3/eUN1dU5MD2vFy');
