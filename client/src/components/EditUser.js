@@ -75,7 +75,7 @@ export class EditUser extends Component {
         }
         if (this.state.loading) {
             return (
-                <div className="loading">
+                <div className="welcome-message">
                     <Header />
                     <h1>Loading...</h1>
                 </div>

@@ -35,9 +35,9 @@ class Papers extends Component {
   render() {
     if (this.state.loading) {
       return (
-          <div className="loading">
+          <div>
               <Header />
-              <h1>Loading...</h1>
+              <h1 className="welcome-message">Loading...</h1>
           </div>
       )
   }

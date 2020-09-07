@@ -43,28 +43,28 @@ export class RemoveUser extends Component {
 
     delete = (e) => {
         e.preventDefault();
-        if(this.state.selectedUser===''){
+        if (this.state.selectedUser === '') {
             this.deleteError('Please select a user');
         } else {
-        fetch(`/deleteuser?username=${this.state.selectedUser}`).then(res => res.json()).then(data => {
-            console.log(data)
-            if (!data) {
-                this.deleteError('Error')
-            }
-            if (data.result) {
-                this.deleteSuccess()
-                setTimeout(() => {
-                    fetch(`/getusers`).then(res => res.json().then(data => {
-                        console.log(data);
-                        this.setState({ users: data });
-                        this.setState({ loading: false });
-                    }))
-                }, 1000);
-            } else {
-                this.deleteError(data.message)
-            }
-        });
-    }
+            fetch(`/deleteuser?username=${this.state.selectedUser}`).then(res => res.json()).then(data => {
+                console.log(data)
+                if (!data) {
+                    this.deleteError('Error')
+                }
+                if (data.result) {
+                    this.deleteSuccess()
+                    setTimeout(() => {
+                        fetch(`/getusers`).then(res => res.json().then(data => {
+                            console.log(data);
+                            this.setState({ users: data });
+                            this.setState({ loading: false });
+                        }))
+                    }, 1000);
+                } else {
+                    this.deleteError(data.message)
+                }
+            });
+        }
     }
 
     render() {
@@ -86,9 +86,9 @@ export class RemoveUser extends Component {
         }
         if (this.state.loading) {
             return (
-                <div className="loading">
+                <div>
                     <Header />
-                    <h1>Loading...</h1>
+                    <h1 className="welcome-message">Loading...</h1>
                 </div>
             )
         }
