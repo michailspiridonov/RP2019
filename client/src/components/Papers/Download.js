@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from './Header';
+import { Header } from '../Header';
 import { Redirect } from 'react-router-dom';
 
 export class Download extends Component {

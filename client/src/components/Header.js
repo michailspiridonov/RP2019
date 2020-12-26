@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Redirect } from 'react-router-dom';
 
 export class Header extends Component {
 
     constructor() {
         super();
         this.state = {
-            user: ''
+            user: '',
+            redirect: false
         };
     }
 
@@ -16,11 +18,11 @@ export class Header extends Component {
         const res = await fetch(`/session`);
         const data = await res.json();
         if (data.loggedin) {
-            this.setState({ user: data.username })
+            this.setState({ user: data.username,
+                            redirect: false });
         } else {
             this.setState({
                 loading: false,
-                redirect: '/'
             })
         }
     }
@@ -34,12 +36,17 @@ export class Header extends Component {
         this.successfullyLoggedOut()
         setTimeout(() => {
             fetch('/logout');
-            window.location.reload(true); 
-        }, 1000);
+            this.setState({ redirect: '/login' });
+       }, 1000);
         
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={{
+              pathname: this.state.redirect
+            }} />
+          }
         if (this.state.user) {
             return (
                 <React.Fragment>

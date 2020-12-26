@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import Papers from './components/Papers';
-import Paper from './components/Paper';
+import Papers from './components/Papers/Papers';
+import Paper from './components/Papers/Paper';
 import Home from './components/Home';
-import Add from "./components/Add";
-import Delete from "./components/Delete";
-import Download from './components/Download';
+import Add from "./components/Papers/Add";
+import Delete from "./components/Papers/Delete";
+import Download from './components/Papers/Download';
 import Search from './components/Search';
-import Results from './components/Results';
-import Login from './components/Login';
-import UserSettings from './components/UserSettings';
-import AddUser from './components/AddUser';
-import RemoveUser from './components/RemoveUser';
-import EditUser from './components/EditUser';
+import Results from './components/Papers/Results';
+import Login from './components/UserManagement/Login';
+import UserSettings from './components/UserManagement/UserSettings';
+import AddUser from './components/UserManagement/AddUser';
+import RemoveUser from './components/UserManagement/RemoveUser';
+import EditUser from './components/UserManagement/EditUser';
 
 class App extends Component {
   render() {
