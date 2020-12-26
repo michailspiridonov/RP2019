@@ -58,7 +58,7 @@ export class EditUser extends Component {
     changePassword = (e) => {
         e.preventDefault();
         const user = this.state;
-        console.log(user)
+        console.log(user);
         axios.post('/useredit', user, {method: 'post'}).then(res => {
             console.log(res.data);
         });
