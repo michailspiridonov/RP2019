@@ -90,7 +90,7 @@ Router.get("/paper/delete", (req, res) => {
       const SELECT_QUERY = `SELECT * FROM papers WHERE id=${req.query.id}`;
       mysqlConnection.query(SELECT_QUERY, (err, result) => {
          if (err) {
-            res.json({ success: false, messaage: err });
+            res.json({ success: false, message: err });
          } else {
             const path = result[0].path;
             try {
@@ -219,11 +219,11 @@ Router.post('/adduser', (req, res) => {
          const password = req.body.password;
          const username = req.body.username;
          bcrypt.hash(password, 8, (err, hash) => {
-            const QUERY = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}')`;
-            mysqlConnection.query(QUERY, (err, result) => {
+            const QUERY = `INSERT INTO users (name, username, password) VALUES ('${username}', '${username}', '${hash}')`;
+            mysqlConnection.query(QUERY, (err) => {
                if (err) {
                   console.log(err);
-                  res.json({ success: false, message: 'Error, possibly duplicate usernames' });
+                  res.json({ success: false, message: err.code + ";\n " + err.sqlMessage });
                } else {
                   res.json({ success: true });
                }
@@ -262,6 +262,8 @@ Router.get("/getusers", (req, res) => {
             res.send(rows);
          }
       });
+   } else {
+      res.json({result: 'Not logged in as admin'});
    }
 });
 
@@ -289,8 +291,8 @@ Router.get("/deleteuser", (req, res) => {
 });
 
 //Change Password
-Router.post('/useredit', (req, res) => {
-   if (req.session.loggedin) {
+Router.post('/changepassword', (req, res) => {
+   if (req.session.loggedin && req.body.user === 'admin') {
       const oldPassword = req.body.oldPassword;
       const newPassword = req.body.newPassword;
       const confirmationPassword = req.body.confirmationPassword;
@@ -325,13 +327,88 @@ Router.post('/useredit', (req, res) => {
       } else {
          res.json({
             result: false,
-            messaage: `Passwords don't match`
+            message: `Passwords don't match`
+         })
+      }
+   } else if(req.session.loggedin){
+      const oldPassword = req.body.oldPassword;
+      const newPassword = req.body.newPassword;
+      const confirmationPassword = req.body.confirmationPassword;
+      const username = req.body.user;
+      if (newPassword === confirmationPassword) {
+         const QUERY = `SELECT * FROM users WHERE username LIKE '${username}'`;
+         mysqlConnection.query(QUERY, (err, result) => {
+            if (err) {
+               console.log(err);
+               res.json({result: false, message: err});
+            } else {
+               if (result.length) {
+                  bcrypt.compare(oldPassword, result[0].password, (err, result) => {
+                     if (result) {
+                        bcrypt.hash(newPassword, 8, (hash) => {
+                           const QUERY = `UPDATE users SET password='${hash}' WHERE username='${username}'`;
+                           mysqlConnection.query(QUERY, (err) => {
+                              if (err) {
+                                 console.log(err);
+                                 res.json({ result: false, message: err });
+                              } else {
+                                 res.json({ result: true });
+                              }
+                           });
+                        });
+                     } else {
+                        res.json({ result: false, message: `Old password is wrong` });
+                     }
+                  });
+               } else {
+                  res.json({result: false, message: `Didn't find any users with username: ${username}`});
+               }
+            }
+         });
+      } else {
+         res.json({
+            result: false,
+            message: `Passwords don't match`
          })
       }
    } else {
       res.json({
          result: false,
-         messaage: `Not logged in`
+         message: `Not logged in`
+      })
+   }
+});
+
+//Change Username
+Router.post('/changeusername', (req, res) => {
+   if (req.session.loggedin) {
+      const oldUsername = req.body.user;
+      const newUsername = req.body.newUsername;
+      const QUERY = `SELECT * FROM users WHERE username LIKE '${oldUsername}'`;
+      mysqlConnection.query(QUERY, (err, result) => {
+         if (err) {
+            console.log(err);
+            res.json({ message: err });
+         } else {
+            if (result.length) {
+               const QUERY = `UPDATE users SET username='${newUsername}' WHERE username='${oldUsername}'`;
+               mysqlConnection.query(QUERY, (err) => {
+                  if (err) {
+                     console.log(err);
+                     res.json({ result: false, message: err });
+                  } else {
+                     res.json({ result: true });
+                  }
+               });
+            } else {
+               res.json({result: `Couldn\'t find any users with username: '${result}'`})
+            }
+         }
+      });
+   } else {
+      res.json({
+         result: false,
+         message: `Not logged in`
       })
    }
 });

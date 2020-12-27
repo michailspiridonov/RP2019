@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header } from '../Header';
+import { Header } from '../GUI/Header';
 
 export class Login extends Component {
   constructor(props) {
@@ -43,8 +43,9 @@ export class Login extends Component {
       }} />
     }
     return (
+      <div>
+        <Header/>
       <div className="login-page">
-        <Header />
         <form onSubmit={this.login} className="form">
           Username: <br />
           <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
@@ -53,6 +54,7 @@ export class Login extends Component {
           <button type="submit" value="Login">Login</button>
         </form>
         <ToastContainer />
+      </div>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header } from '../Header';
+import { Header } from '../GUI/Header';
 import axios from 'axios';
 
 export class EditUser extends Component {
@@ -16,7 +16,8 @@ export class EditUser extends Component {
             oldPassword: '',
             newPassword: '',
             confirmationPassword: '',
-            newUsername: ''
+            newUsername: '',
+            userCanChangeName: false
         }
     }
 
@@ -59,9 +60,15 @@ export class EditUser extends Component {
         e.preventDefault();
         const user = this.state;
         console.log(user);
-        axios.post('/useredit', user, {method: 'post'}).then(res => {
-            console.log(res.data);
+        axios.post('/changepassword', user, {method: 'post'}).then(res => {
+            console.log(res.data[0]);
         });
+    }
+
+    changeUsername = (e) => {
+        e.preventDefault();
+        const user = this.state;
+        axios.post('/changeusername', user, {method: 'post'});
     }
 
     render() {
@@ -95,12 +102,13 @@ export class EditUser extends Component {
                     <ToastContainer />
                 </div>
             )
-        } else if (this.state.user === 'admin') {
+        }
+        if (this.state.user === 'admin') {
             return (
                 <div>
                     <Header />
                     <div className="login-page">
-                        <form onSubmit={this.login} name="form" className="form">
+                        <form name="form" className="form">
                             <h2 className="edit-message">Editing {this.state.selectedUser}</h2>
                             <label htmlFor="oldPassword">Old Password:</label>
                             <input required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
@@ -115,12 +123,18 @@ export class EditUser extends Component {
                 </div>
             )
         }
-        if (!this.state.selectedUser) {
+        if (!this.state.selectedUser && this.state.userCanChangeName) {
             return (
                 <div>
                     <Header />
-                    <div className="login-page">
-                        <form onSubmit={this.login} className="form">
+                    <div className="login-page" style={{display: 'flex'}}>
+                        <form className="form">
+                            <h2 className="edit-message">Edit {this.state.user}'s username</h2>
+                            <label htmlFor="newUsername">New Username:</label>
+                            <input required type="text" name="newUsername" placeholder="New Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input type="submit" value="Change Username" onClick={this.changeUsername} />
+                        </form>
+                        <form className="form">
                             <h2 className="edit-message">Editing {this.state.user}</h2>
                             <label htmlFor="username">Username:</label>
                             <input required type="text" name="username" placeholder="username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
@@ -129,6 +143,26 @@ export class EditUser extends Component {
                             <label htmlFor="username">Confirm Password:</label>
                             <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <input type="submit" value="Add User" />
+                        </form>
+                    </div>
+                    <ToastContainer />
+                </div>
+            )
+        }
+        if(!this.state.selectedUser){
+            return (
+                <div>
+                    <Header />
+                    <div className="login-page" style={{display: 'flex'}}>
+                        <form className="form">
+                            <h2 className="edit-message">Change your password</h2>
+                            <label htmlFor="oldPassword">Old Password:</label>
+                            <input required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <label htmlFor="newPassword">New Password:</label>
+                            <input required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <label htmlFor="confirmationPassword">Confirm New Password:</label>
+                            <input required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input type="submit" value="Change Password" onClick={this.changePassword}/>
                         </form>
                     </div>
                     <ToastContainer />

@@ -194,6 +194,9 @@ body {
   max-width: 500px;
   margin: auto;
 }
+.Toastify__toast-body {
+  white-space: pre-line;
+}
 
 .add-input {
   width: 385px;
@@ -291,6 +294,7 @@ body {
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  min-width: 360px;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -322,7 +326,11 @@ body {
   overflow: hidden;
   display: inline-block;
 }
-
+.login-page {
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+}
 .upload-btn {
   border: 2px solid gray;
   color: gray;

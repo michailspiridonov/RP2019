@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from '../Header';
+import { Header } from '../GUI/Header';
 
 export class Delete extends Component {
   constructor(match) {

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header } from '../Header';
+import { Header } from '../GUI/Header';
 
 export class AddUser extends Component {
     constructor(props) {
@@ -47,7 +47,7 @@ export class AddUser extends Component {
         toast.success("Success!");
     }
 
-    login = (e) => {
+    addUser = (e) => {
         e.preventDefault();
         const user = this.state;
         if (user.confirmpassword !== user.password) {
@@ -55,13 +55,16 @@ export class AddUser extends Component {
         } else {
             axios.post('/adduser', user, {}).then(res => {
                 if (res.data.success) {
-                    this.setState({ redirect: '/user/settings', message: res.data.message });
+                    this.setState({ message: res.data.message });
+                    this.addSuccess();
+                    setTimeout(() => {
+                        this.setState({ redirect: '/user/settings' });
+                    }, 2000);
                     console.log(res.data)
-                    this.addSuccess()
                 } else {
                     this.setState({ message: res.data.message });
-                    this.addError()
-                    console.log(res.data)
+                    this.addError();
+                    console.log(res.data);
                 }
             });
         }
@@ -90,18 +93,20 @@ export class AddUser extends Component {
             )
         }
         return (
-            <div className="login-page">
+            <div>
                 <Header />
-                <form onSubmit={this.login} className="form">
-                    <label htmlFor="username">Username:</label>
-                    <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                    <label htmlFor="username">Password:</label>
-                    <input required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                    <label htmlFor="username">Confirm Password:</label>
-                    <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                    <input type="submit" value="Add User" />
-                </form>
-                <ToastContainer />
+                <div className="login-page">
+                    <form onSubmit={this.addUser} className="form">
+                        <label htmlFor="username">Username:</label>
+                        <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <label htmlFor="username">Password:</label>
+                        <input required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <label htmlFor="username">Confirm Password:</label>
+                        <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <input type="submit" value="Add User" />
+                    </form>
+                    <ToastContainer />
+                </div>
             </div>
         )
     }
