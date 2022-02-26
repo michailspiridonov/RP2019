@@ -9,10 +9,68 @@ body {
   align-items: center;
   background-color: #222;
   padding: 1%;
-  font-size: 30px;
-  color: white;
   font-family: sans-serif;
   text-transform: uppercase;
+}
+
+.header-title {
+  font-size: 30px;
+  color: white;
+}
+
+.users {
+  width: 100%;
+  height: 50px;
+  font-size: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: rgb(100, 100, 100);
+  color: white;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.users:hover,
+.users:focus {
+  color: rgb(100, 100, 100);
+  background-color: rgb(194, 194, 194);
+  border-bottom-color: #DCDCDC;
+}
+
+.user-removal {
+  width: 250px;
+  margin: left;
+  padding: 25px;
+  padding-left: 30%;
+}
+
+.remove-user-btn {
+  width: 100px;
+  margin-left: 30%;
+  background-color: #fff;
+  color: rgb(100, 100, 100);
+  border-radius: 6px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+.remove-user-btn:hover,
+.remove-user-btn:focus {
+  background-color: rgb(100, 100, 100);
+  color: #fff;
+}
+
+.user {
+  position:fixed;
+  right:20px;
+  top:5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
 }
 
 .result-text{
@@ -43,13 +101,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
-  margin: auto;
-  justify-content: space-around;
   padding: 25px; 
+  margin: auto;
 }
 
 .paper {
-  margin: 10px;
+  margin: 30px;
   text-align: center;
   background-color: rgb(194, 194, 194);
   width: 200px;
@@ -72,12 +129,32 @@ body {
   margin: auto;
 }
 
+.btn-main {
+  color: #494949 !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 20px;
+  border: 4px solid #494949 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  width: 120px;
+  text-align: center;
+  }
+
+.btn-main:hover {
+  color: #ffffff !important;
+  background: rgb(69, 69, 69);
+  border-color: rgb(100, 100, 100);
+  transition: all 0.4s ease 0s;
+}
+
 .paper-buttons{
   float: left;
   display: flex;
   flex-direction: column;
   margin: auto;
-  padding-left: 30%;
+  padding-left: 25%;
 }
 
 .paper-text{
@@ -116,6 +193,9 @@ body {
 .add-paper {
   max-width: 500px;
   margin: auto;
+}
+.Toastify__toast-body {
+  white-space: pre-line;
 }
 
 .add-input {
@@ -188,6 +268,9 @@ body {
 	text-decoration: none;
 	text-transform: uppercase;
 }
+.edit-message{
+  text-transform: capitalize;
+}
 
 .welcome-message{
   display: flex;
@@ -196,8 +279,11 @@ body {
   margin: auto;
   justify-content: space-around;
   padding: 25px; 
+  text-transform: capitalize;
+  float: left;
+  flex-direction: column;
+  padding-left: 30%;
 }
-
 
 .form {
   position: relative;
@@ -208,6 +294,7 @@ body {
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  min-width: 360px;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -239,7 +326,11 @@ body {
   overflow: hidden;
   display: inline-block;
 }
-
+.login-page {
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+}
 .upload-btn {
   border: 2px solid gray;
   color: gray;

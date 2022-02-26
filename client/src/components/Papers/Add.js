@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router-dom';
-import { Header } from './Header';
+import { Header } from '../GUI/Header';
 
 export class Add extends Component {
   constructor(props) {
@@ -24,7 +24,8 @@ export class Add extends Component {
       document: '',
       result: '',
       user: '',
-      redirect: false
+      redirect: false,
+      loading: true
     }
   }
 
@@ -60,7 +61,7 @@ export class Add extends Component {
         title: res.data.title,
         path: res.data.path,
         class: res.data.class,
-        year: parseInt(res.data.year),
+        year: parseInt(res.data.year, 10),
         subject: res.data.subject,
         mentor: res.data.mentor,
         keywords: keywords,
@@ -75,9 +76,15 @@ export class Add extends Component {
     const res = await fetch(`/session`);
     const data = await res.json();
     if (data.loggedin) {
-      this.setState({ user: data.username })
+      this.setState({
+        user: data.username,
+        loading: false
+      })
     } else {
-      this.setState({ redirect: '/' })
+      this.setState({
+        redirect: '/',
+        loading: false
+      })
     }
   }
 
@@ -133,13 +140,28 @@ export class Add extends Component {
     const paper = this.state;
     if (paper.result === false) {
       console.log(paper.result);
-      { this.fileTypeError() }
+      this.fileTypeError();
+    }
+
+    if (this.state.loading) {
+      return (
+        <div>
+          <Header />
+          <h1 className="welcome-message">Loading...</h1>
+        </div>
+      )
     }
     return (
       <div>
         <Header />
         <div className="add-paper">
           <form onSubmit={this.addPaper} className="add-form">
+            <div>
+              <h1>File upload</h1>
+              <input type="file" name="file upload" onChange={this.onFileChange} />
+              <input type="submit" value="upload" onClick={this.onUpload} />
+            </div>
+            <br />
             Author:<br />
             <input type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
@@ -162,14 +184,9 @@ export class Add extends Component {
             <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
             <input type="submit" value="Add paper" />
-          <div>
-            <h1>File upload</h1>
-            <input required type="file" name="file upload" onChange={this.onFileChange} />
-            <button type="submit" onClick={this.onUpload}>Upload</button>
-          </div>
           </form>
         </div>
-            <ToastContainer />
+        <ToastContainer />
       </div>
     )
   }

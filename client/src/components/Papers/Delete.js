@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from './Header';
+import { Header } from '../GUI/Header';
 
 export class Delete extends Component {
   constructor(match) {
@@ -20,8 +20,8 @@ export class Delete extends Component {
       return (
         <div>
           <Header />
-          <h1>Success</h1>
-          <h2>Paper with the id of {this.state.data.id} deleted</h2>
+          <h1 className="welcome-message">Success</h1>
+          <h2 className="welcome-message">Paper with the id of {this.state.data.id} deleted</h2>
         </div>
       )
     } else {

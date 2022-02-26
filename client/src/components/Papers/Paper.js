@@ -2,25 +2,32 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header } from './Header';
+import { Header } from '../GUI/Header';
 
 class Paper extends Component {
   constructor(match) {
     super();
     this.state = {
       paper: {},
-      user: ''
+      user: '',
+      loading: true
     };
   }
 
   async componentDidMount() {
     var res = await fetch(`/paper/id/${this.props.match.params.id}`);
     var data = await res.json();
-    this.setState({ paper: data[0] });
+    this.setState({
+      paper: data[0],
+      loading: false
+    });
     res = await fetch(`/session`);
     data = await res.json();
     if (data.loggedin) {
-      this.setState({ user: data.username })
+      this.setState({
+        user: data.username,
+        loading: false
+      })
     }
   }
 
@@ -37,16 +44,12 @@ class Paper extends Component {
       </div>
       <h2 className="paper-subject">{paper.subject}</h2>
       <div className="paper-buttons">
-        <button>
           <Link to={`/delete/${paper.id}`}>
-            <h3>Delete paper</h3>
+             <a className="btn-main">Delete</a>
           </Link>
-        </button>
-        <button>
           <Link to={`/download/${paper.id}/${paper.title}`}>
-            <h3 >Download</h3>
+          <a className="btn-main">Download</a>
           </Link>
-        </button>
       </div>
       <li className="paper-details">
         <ul>Class: {paper.class}</ul>
@@ -64,11 +67,9 @@ class Paper extends Component {
       </div>
       <h2 className="paper-subject">{paper.subject}</h2>
       <div className="paper-buttons">
-        <button>
           <Link to={`/download/${paper.id}/${paper.title}`}>
-            <h3 >Download</h3>
+            <a className="btn-main">Download</a>
           </Link>
-        </button>
       </div>
       <li className="paper-details">
         <ul>Class: {paper.class}</ul>
@@ -78,7 +79,15 @@ class Paper extends Component {
   );
 
   render() {
-    if (this.state.paper == undefined) {
+    if (this.state.loading) {
+      return (
+        <div>
+          <Header />
+          <h1 className="welcome-message">Loading...</h1>
+        </div>
+      )
+    }
+    if (this.state.paper === undefined) {
       return (
         <div>
           <Header />
@@ -86,7 +95,7 @@ class Paper extends Component {
         </div>
       )
     }
-    if(this.state.user){
+    if (this.state.user) {
       return (
         <div>
           <Header />

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Header } from './Header';
+import { Header } from '../GUI/Header';
+import { Redirect } from 'react-router-dom';
 
 export class Download extends Component {
   constructor(match) {
     super();
     this.state = {
+      redirect: false
     };
   }
 
@@ -17,9 +19,14 @@ export class Download extends Component {
         a.download = `${this.props.match.params.title}.pdf`;
         a.click();
       });
-  });
+  }).then( this.setState({redirect: '/papers'}) );
   }
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={{
+        pathname: this.state.redirect,
+      }} />
+    }
     return (
       <div>
         <Header />

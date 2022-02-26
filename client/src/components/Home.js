@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Search from './Search';
-import { Header } from './Header';
+import { Header } from './GUI/Header';
 
 export class Home extends Component {
     constructor() {
@@ -24,7 +22,6 @@ export class Home extends Component {
         return (
             <div>  
             <Header />
-                <h1 className="welcome-message">Welcome {this.state.user}</h1>  
             </div>
         )
     }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Results from './Results';
 import { Redirect } from 'react-router-dom';
-import { Header } from './Header';
+import { Header } from './GUI/Header';
 
 export class Search extends Component {
   constructor(props) {
