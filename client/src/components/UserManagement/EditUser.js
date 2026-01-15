@@ -141,7 +141,7 @@ export class EditUser extends Component {
                             <label htmlFor="username">Password:</label>
                             <input required type="password" name="password" placeholder="password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="username">Confirm Password:</label>
-                            <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input required type="password" name="confirmationPassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <input type="submit" value="Add User" />
                         </form>
                     </div>

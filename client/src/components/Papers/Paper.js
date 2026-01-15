@@ -45,10 +45,10 @@ class Paper extends Component {
       <h2 className="paper-subject">{paper.subject}</h2>
       <div className="paper-buttons">
           <Link to={`/delete/${paper.id}`}>
-             <a className="btn-main">Delete</a>
+             <a id='deleteBtn' className="btn-main">Delete</a>
           </Link>
           <Link to={`/download/${paper.id}/${paper.title}`}>
-          <a className="btn-main">Download</a>
+          <a id='downloadBtn' className="btn-main">Download</a>
           </Link>
       </div>
       <li className="paper-details">
@@ -68,7 +68,7 @@ class Paper extends Component {
       <h2 className="paper-subject">{paper.subject}</h2>
       <div className="paper-buttons">
           <Link to={`/download/${paper.id}/${paper.title}`}>
-            <a className="btn-main">Download</a>
+            <a id='downloadBtn' className="btn-main">Download</a>
           </Link>
       </div>
       <li className="paper-details">

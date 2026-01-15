@@ -27,6 +27,7 @@ function dataExtraction(text, callback) {
   let lines = text.split('\n');
   let info = [];
   let i;
+  try {
   for (i = 0; i < lines.length; i++) {
     if (lines[i].includes('Autor') && !info[0]) {
       info[0] = lines[i].split(':')[1].trim();
@@ -46,6 +47,9 @@ function dataExtraction(text, callback) {
     if (lines[i].includes('Vedoucí práce') && !info[6]) {
       info[6] = lines[i].split(':')[1].trim();
     }
+  }
+  } catch (err) {
+    console.log(err);
   }
   callback(info);
 }

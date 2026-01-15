@@ -102,7 +102,7 @@ export class AddUser extends Component {
                         <label htmlFor="password">Password:</label>
                         <input id='password' required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                         <label htmlFor="confirmpassword">Confirm Password:</label>
-                        <input id='confirmpassword' required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <input id='confirmationPassword' required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                         <input type="submit" value="Add User" />
                     </form>
                     <ToastContainer />

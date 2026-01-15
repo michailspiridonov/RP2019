@@ -183,7 +183,7 @@ export class Add extends Component {
           Keywords: <br />
             <textarea id='keywords' type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
-            <input type="submit" value="Add paper" />
+            <input id='addPaperBtn' type="submit" value="Add paper" />
           </form>
         </div>
         <ToastContainer />
