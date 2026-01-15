@@ -48,9 +48,9 @@ export class Login extends Component {
       <div className="login-page">
         <form onSubmit={this.login} className="form">
           Username: <br />
-          <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+          <input id='username' required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
           Password: <br />
-          <input required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+          <input id='password' required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
           <button type="submit" value="Login">Login</button>
         </form>
         <ToastContainer />

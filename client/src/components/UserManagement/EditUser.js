@@ -111,11 +111,11 @@ export class EditUser extends Component {
                         <form name="form" className="form">
                             <h2 className="edit-message">Editing {this.state.selectedUser}</h2>
                             <label htmlFor="oldPassword">Old Password:</label>
-                            <input required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='oldPassword' required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="newPassword">New Password:</label>
-                            <input required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='newPassword' required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="confirmationPassword">Confirm New Password:</label>
-                            <input required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='confirmationPassword' required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <input type="submit" value="Change Password" onClick={this.changePassword}/>
                         </form>
                     </div>
@@ -131,7 +131,7 @@ export class EditUser extends Component {
                         <form className="form">
                             <h2 className="edit-message">Edit {this.state.user}'s username</h2>
                             <label htmlFor="newUsername">New Username:</label>
-                            <input required type="text" name="newUsername" placeholder="New Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='newUsername' required type="text" name="newUsername" placeholder="New Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <input type="submit" value="Change Username" onClick={this.changeUsername} />
                         </form>
                         <form className="form">
@@ -157,11 +157,11 @@ export class EditUser extends Component {
                         <form className="form">
                             <h2 className="edit-message">Change your password</h2>
                             <label htmlFor="oldPassword">Old Password:</label>
-                            <input required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='oldPassword' required type="password" name="oldPassword" placeholder="Old Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="newPassword">New Password:</label>
-                            <input required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='newPassword' required type="password" name="newPassword" placeholder="New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <label htmlFor="confirmationPassword">Confirm New Password:</label>
-                            <input required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                            <input id='confirmationPassword' required type="password" name="confirmationPassword" placeholder="Confirm New Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                             <input type="submit" value="Change Password" onClick={this.changePassword}/>
                         </form>
                     </div>

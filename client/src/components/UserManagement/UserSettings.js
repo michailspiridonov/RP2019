@@ -35,13 +35,13 @@ export class UserSettings extends Component {
                     <h2 className="welcome-message">Welcome {this.state.user}</h2>
                     <div className="user-buttons">
                         <Link to={`/user/add`}>
-                            <a className="btn-main">Add user</a>
+                            <a id='addUserLink' className="btn-main">Add user</a>
                         </Link>
                         <Link to={`/user/remove`}>
-                            <a className="btn-main">Delete user</a>
+                            <a id='removeUserLink' className="btn-main">Delete user</a>
                         </Link>
                         <Link to={`/user/edit`}>
-                            <a className="btn-main">Edit user</a>
+                            <a id='editUserLink' className="btn-main">Edit user</a>
                         </Link>
                     </div>
                 </React.Fragment>
@@ -53,7 +53,7 @@ export class UserSettings extends Component {
                 <h2 className="welcome-message">Welcome {this.state.user}</h2>
                 <div className="user-buttons">
                         <Link to={`/user/edit`}>
-                            <a className="btn-main">Edit your profile</a>
+                            <a id='editUserLink' className="btn-main">Edit your profile</a>
                         </Link>
                 </div>
             </React.Fragment>

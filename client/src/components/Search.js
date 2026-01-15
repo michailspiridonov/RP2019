@@ -54,25 +54,25 @@ export class Search extends Component {
           <form onSubmit={this.searchPaper} className="add-form">
           <h2>Search</h2><br />
             Autor: <br />
-            <input type="text" name="author" id="1" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="author" id="author" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Title: <br />
-            <input type="text" name="title" id="2" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="title" id="title" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Class: <br />
-            <input type="text" name="class" id="3" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="class" id="class" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Year: <br />
-            <input type="text" name="year" id="4" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="year" id="year" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Subject: <br />
-            <input type="text" name="subject" id="5" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="subject" id="subject" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Mentor: <br />
-            <input type="text" name="mentor" id="6" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="mentor" id="mentor" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
                 Keywords: <br />
-            <input type="text" name="keywords" id="7" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input type="text" name="keywords" id="keywords" className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
             <input type="submit" value="Search" />
           </form>

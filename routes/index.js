@@ -176,7 +176,7 @@ Router.get('/paper/download/:id', (req, res) => {
 
 //Search
 Router.get('/search', (req, res) => {
-   const QUERY = `SELECT * FROM papers WHERE author LIKE '%${req.query.author}%' AND title LIKE '%${req.query.title}%' AND class LIKE '%${req.query.class}%' AND year LIKE '%${req.query.year}%' AND subject LIKE '%${req.query.subject}%' AND mentor LIKE '%${req.query.mentor}%' AND keywords LIKE '%${req.query.keywords}%'`;
+   const QUERY = `SELECT * FROM papers WHERE author LIKE '%${req.query.author}%' OR title LIKE '%${req.query.title}%' OR class LIKE '%${req.query.class}%' OR year LIKE '%${req.query.year}%' OR subject LIKE '%${req.query.subject}%' OR mentor LIKE '%${req.query.mentor}%' OR keywords LIKE '%${req.query.keywords}%'`;
    mysqlConnection.query(QUERY, (err, result) => {
       if (err) {
          console.log(err);

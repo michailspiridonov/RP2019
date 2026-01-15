@@ -98,11 +98,11 @@ export class AddUser extends Component {
                 <div className="login-page">
                     <form onSubmit={this.addUser} className="form">
                         <label htmlFor="username">Username:</label>
-                        <input required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                        <label htmlFor="username">Password:</label>
-                        <input required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
-                        <label htmlFor="username">Confirm Password:</label>
-                        <input required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <input id='username' required type="text" name="username" placeholder="Username" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <label htmlFor="password">Password:</label>
+                        <input id='password' required type="password" name="password" placeholder="Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
+                        <label htmlFor="confirmpassword">Confirm Password:</label>
+                        <input id='confirmpassword' required type="password" name="confirmpassword" placeholder="Confirm Password" onChange={e => this.setState({ [e.target.name]: e.target.value })} /> <br />
                         <input type="submit" value="Add User" />
                     </form>
                     <ToastContainer />
