@@ -61,3 +61,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Add 'Admin' user
 -- -----------------------------------------------------
 INSERT INTO `users` VALUES (NULL, 'admin', '$2y$08$oNU6xtoIhsmJmMZtfHHFEuM1snj.dtvQQ27KAw3/eUN1dU5MD2vFy');
+INSERT INTO `users` VALUES (NULL, 'user', '$2a$08$ewDQ9rqftWJtHuZwBw3lyeqHQfjy.kFiNmqxrKxhAH9iYtLbgO.SO');
