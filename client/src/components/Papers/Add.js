@@ -158,30 +158,30 @@ export class Add extends Component {
           <form onSubmit={this.addPaper} className="add-form">
             <div>
               <h1>File upload</h1>
-              <input type="file" name="file upload" onChange={this.onFileChange} />
-              <input type="submit" value="upload" onClick={this.onUpload} />
+              <input id='fileUpload' type="file" name="file upload" onChange={this.onFileChange} />
+              <input id='uploadBtn' type="submit" value="upload" onClick={this.onUpload} />
             </div>
             <br />
             Author:<br />
-            <input type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='author' type="text" name="author" placeholder="Author" value={paper.author} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Title: <br />
-            <input type="text" name="title" placeholder="Title" value={paper.title} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='title' type="text" name="title" placeholder="Title" value={paper.title} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Class: <br />
-            <input type="text" name="class" maxLength="1" placeholder="Class" value={paper.class} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='class' type="text" name="class" maxLength="1" placeholder="Class" value={paper.class} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Year: <br />
-            <input type="number" name="year" maxLength="4" placeholder="Year" value={paper.year} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='year' type="number" name="year" maxLength="4" placeholder="Year" value={paper.year} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Subject: <br />
-            <input type="text" name="subject" placeholder="Subject" value={paper.subject} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='subject' type="text" name="subject" placeholder="Subject" value={paper.subject} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Mentor: <br />
-            <input type="text" name="mentor" placeholder="Mentor" value={paper.mentor} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <input id='mentor' type="text" name="mentor" placeholder="Mentor" value={paper.mentor} className="add-input" onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
           Keywords: <br />
-            <textarea type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
+            <textarea id='keywords' type="text" name="keywords" placeholder="Keywords" value={paper.keywords} style={{ width: '400px', height: '75px' }} onChange={e => this.setState({ [e.target.name]: e.target.value })} />
             <br />
             <input type="submit" value="Add paper" />
           </form>

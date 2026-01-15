@@ -56,28 +56,28 @@ export class Header extends Component {
                         </p>
                         <div className="user">
                             <Link to="/user/settings" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="login-btn">{this.state.user}</p>
+                                <p id="loginBtn" className="login-btn">{this.state.user}</p>
                             </Link>
                             &nbsp;|&nbsp;
                             <Link onClick={this.logout} style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="login-btn">Log out</p>
+                                <p id='logoutBtn' className="login-btn">Log out</p>
                             </Link>
                         </div>
                         <div className="nav-menu">
                             <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Home</p>
+                                <p id='homeLink' className="nav-link">Home</p>
                             </Link>
                             <Link to="/papers" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Papers</p>
+                                <p id='papersLink' className="nav-link">Papers</p>
                             </Link>
                             <Link to="/add" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Add Paper</p>
+                                <p id='addPaperLink' className="nav-link">Add Paper</p>
                             </Link>
                             <Link to="/search" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Search</p>
+                                <p id='searchLink' className="nav-link">Search</p>
                             </Link>
                             <Link to="/user/settings" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">User Settings</p>
+                                <p id='userSettingsLink' className="nav-link">User Settings</p>
                             </Link>
                         </div>
                     </header>
@@ -93,18 +93,18 @@ export class Header extends Component {
                             </p>
                         <div className="user">
                             <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="login-btn">Log in</p>
+                                <p id="loginBtn" className="login-btn">Log in</p>
                             </Link>
                         </div>
                         <div className="nav-menu">
                             <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Home</p>
+                                <p id="homeLink" className="nav-link">Home</p>
                             </Link>
                             <Link to="/papers" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Papers</p>
+                                <p id="papersLink" className="nav-link">Papers</p>
                             </Link>
                             <Link to="/search" style={{ color: 'white', textDecoration: 'none' }}>
-                                <p className="nav-link">Search</p>
+                                <p id="searchLink" className="nav-link">Search</p>
                             </Link>
                         </div>
                         <ToastContainer/>
